@@ -14,7 +14,7 @@
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
 import MInput from "@/components/MInput.vue";
 @Component({
-  components: {MInput}
+  components: { MInput }
 })
 export default class Login extends Vue {
   username: string = "";
