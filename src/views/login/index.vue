@@ -1,19 +1,8 @@
 <template>
   <div class="login-page">
     <form class="login-form" ref="loginForm">
-      <label class="form-input__label">
-        账号：
-        <input class="form-input__content" type="text" v-model="username" />
-      </label>
-      <label class="form-input__label">
-        密码：
-        <input
-          class="form-input__content"
-          type="password"
-          v-model="password"
-          @keyup.enter.native="doLogin()"
-        />
-      </label>
+      <m-input type="text" label="Username"></m-input>
+      <m-input type="password" label="password"></m-input>
       <button
         :class="isLoading ? 'do-login' : 'login-button'"
         @click="doLogin()"
@@ -23,8 +12,10 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
-
-@Component
+import MInput from "@/components/MInput.vue";
+@Component({
+  components: {MInput}
+})
 export default class Login extends Vue {
   username: string = "";
   password: string = "";
@@ -32,27 +23,27 @@ export default class Login extends Vue {
 
   doLogin() {
     if (this.username && this.password) {
-      alert("登陆成功！");
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$router.push({ path: "/home" });
+        this.isLoading = false;
+      }, 1800);
     }
-    this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 3000);
-    // if (!this.username) {
-    //   alert("账号不能为空！");
-    //   return;
-    // }
-    // if (!this.password) {
-    //   alert("密码不能为空！");
-    //   return;
-    // }
+    if (!this.username) {
+      alert("账号不能为空！");
+      return;
+    }
+    if (!this.password) {
+      alert("密码不能为空！");
+      return;
+    }
   }
 }
 </script>
 
 <style scoped lang="less">
 .login-page {
-  width: 480px;
+  width: 400px;
   height: 320px;
   margin: 0 auto;
   position: absolute;
@@ -73,13 +64,12 @@ export default class Login extends Vue {
       line-height: 38px;
       font-size: 24px;
       padding: 12px 0;
-      height: 38px;
-      #text {
-        height: 38px;
-      }
+      height: 56px;
+      text-align: left;
       .form-input__content {
         border: none;
-        width: calc(100% - 100px);
+        /*width: calc(100% - 100px);*/
+        width: 100%;
         height: 36px;
         border-radius: 4px;
         font-size: 20px;
@@ -91,7 +81,7 @@ export default class Login extends Vue {
       height: 60px;
       padding: 12px;
       margin-left: calc(50% - 50px);
-      margin-top: 24px;
+      margin-top: 32px;
       /*transform: translateX(-50%);*/
       background: cornflowerblue;
       border-radius: 4px;
@@ -100,6 +90,10 @@ export default class Login extends Vue {
       font-size: 24px;
       box-shadow: 0 0 8px #5364ed;
       transition: ease-in-out 0.36s;
+      &:focus {
+        outline: none;
+        content: none;
+      }
       &::before {
         content: "Sign in";
       }
@@ -108,7 +102,7 @@ export default class Login extends Vue {
       width: 60px;
       height: 60px;
       padding: 12px;
-      margin-top: 24px;
+      margin-top: 32px;
       margin-left: calc(50% - 30px);
       border-radius: 50%;
       border: none;
@@ -118,6 +112,9 @@ export default class Login extends Vue {
       transition: ease-in-out 0.36s;
       animation: rotate 0.5s infinite linear;
       position: relative;
+      &:focus {
+        outline: none;
+      }
       &:before {
         content: "";
         width: 12px;
@@ -125,10 +122,10 @@ export default class Login extends Vue {
         background: white;
         position: absolute;
         top: 10px;
-        left: 10px;
+        left: 14px;
         border-radius: 50%;
-        box-shadow: -6px 16px 0 -2px #ffffff, 3px 32px 0 -4px #ffffff,
-          20px 34px 0 -6px #ffff;
+        box-shadow: -8px 19px 0 -1px #ffffff, 6px 33px 0 -2px #ffffff,
+          23px 30px 0 -3px #ffff, 29px 16px 0 -4px #ffffff;
       }
     }
   }
