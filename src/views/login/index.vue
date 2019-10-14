@@ -11,14 +11,16 @@
         :class="isLoading ? 'do-login' : 'login-button'"
         @click="doLogin()"
       ></button>
+      <m-button size="big">1</m-button>
     </form>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
 import MInput from "@/components/MInput.vue";
+import MButton from "@/components/MButton.vue";
 @Component({
-  components: { MInput }
+  components: {MButton, MInput }
 })
 export default class Login extends Vue {
   username: string = "";
