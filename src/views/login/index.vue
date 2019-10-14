@@ -1,8 +1,12 @@
 <template>
   <div class="login-page">
     <form class="login-form" ref="loginForm">
-      <m-input type="text" label="Username"></m-input>
-      <m-input type="password" label="password"></m-input>
+      <m-input
+        v-model="username"
+        type="text"
+        label="Username"
+      ></m-input>
+      <m-input v-model="password" type="password" label="Password"></m-input>
       <button
         :class="isLoading ? 'do-login' : 'login-button'"
         @click="doLogin()"
@@ -38,6 +42,10 @@ export default class Login extends Vue {
       return;
     }
   }
+
+  testFn(str: string) {
+    console.log(str);
+  }
 }
 </script>
 
@@ -58,24 +66,7 @@ export default class Login extends Vue {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    .form-input__label {
-      color: #ffffff;
-      font-family: "PingFang SC0", "Microsoft YaHei UI", sans-serif;
-      line-height: 38px;
-      font-size: 24px;
-      padding: 12px 0;
-      height: 56px;
-      text-align: left;
-      .form-input__content {
-        border: none;
-        /*width: calc(100% - 100px);*/
-        width: 100%;
-        height: 36px;
-        border-radius: 4px;
-        font-size: 20px;
-        padding: 0 6px;
-      }
-    }
+    font-size: 24px;
     .login-button {
       width: 100px;
       height: 60px;
