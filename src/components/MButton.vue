@@ -5,7 +5,7 @@
     :style="{
       background: bgColor[`${this.type}`],
       color: this.type === 'normal' ? '#000' : '#fff',
-      borderRadius: this.round ? '50%' : ''
+      borderRadius: this.circle ? '50%' : ''
     }"
     :disabled="disabled"
     @click="$emit('click')"

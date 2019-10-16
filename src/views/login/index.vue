@@ -11,7 +11,7 @@
         :class="isLoading ? 'do-login' : 'login-button'"
         @click="doLogin()"
       ></button>
-      <m-button size="big">1</m-button>
+      <m-button size="big" >1</m-button>
     </form>
   </div>
 </template>
