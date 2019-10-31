@@ -1,10 +1,27 @@
 import { Component } from "vue-router/types/router";
 
-const routes: { path: string; name: string; component: Component }[] = [
+const routes: {
+  path: string;
+  name?: string;
+  component: Component;
+  children?: any[];
+}[] = [
   {
-    path: "/home",
-    name: "home",
-    component: () => import("@/views/home/index.vue")
+    path: "/root",
+    name: "root",
+    component: () => import("@/views/layout/index.vue"),
+    children: [
+      {
+        path: "/root",
+        name: "home",
+        component: () => import("@/views/home/index.vue")
+      }
+    ]
+  },
+  {
+    path: "/",
+    name: "login",
+    component: () => import("@/views/login/index.vue")
   }
 ];
 

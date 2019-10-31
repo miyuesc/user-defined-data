@@ -4,17 +4,8 @@ import routes from "@/routes";
 
 Vue.use(Router);
 
-export default new Router({
-  routes: [
-    {
-      path: "/",
-      name: "login",
-      component: () => import("@/views/login/index.vue")
-    },
-    {
-      path: "/home",
-      component: () => import("@/views/layout/index.vue"),
-      children: [...routes]
-    }
-  ]
+const router = new Router({
+  routes
 });
+
+export default router;

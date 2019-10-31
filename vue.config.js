@@ -1,4 +1,3 @@
 module.exports = {
-  publicPath: "otherPage",
-  outputDir: "otherPage"
+  assetsDir: "otherPage"
 };

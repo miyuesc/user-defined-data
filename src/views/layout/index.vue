@@ -1,5 +1,6 @@
 <template>
   <div class="layout">
+    <div class="header">这是头部</div>
     <router-view />
   </div>
 </template>
@@ -15,5 +16,11 @@ export default class Layout extends Vue {}
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .header {
+    width: 100%;
+    height: 80px;
+  }
 }
 </style>

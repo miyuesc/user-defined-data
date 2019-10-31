@@ -1,14 +1,19 @@
 <template>
   <button
+    ref="MButton"
     class="m-button"
-    :class="`m-button__${size}`"
+    :class="[
+      `m-button__${size}`,
+      `${active && !disabled ? 'm-button-active' : ''}`,
+      `${disabled ? 'm-button-disabled' : ''}`,
+      { 'is-circle': circle, 'is-round': round }
+    ]"
     :style="{
       background: bgColor[`${this.type}`],
       color: this.type === 'normal' ? '#000' : '#fff',
       borderRadius: this.circle ? '50%' : ''
     }"
-    :disabled="disabled"
-    @click="$emit('click')"
+    @click="handleClick"
   >
     <slot></slot>
   </button>
@@ -21,7 +26,7 @@
  * @Date: ${Date.date()}
  **/
 
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 
 @Component({})
 export default class MButton extends Vue {
@@ -35,14 +40,21 @@ export default class MButton extends Vue {
   round!: boolean;
   @Prop({ type: Boolean, default: false })
   circle!: boolean;
+  @Prop({ type: Boolean, default: true })
+  active!: boolean;
 
   bgColor: any = {
     normal: "rgba(255, 255, 255, 1)",
     primary: "rgba(83,129,255, 1)",
     warning: "rgb(255,90,20)",
     error: "rgba(255,60,58, 1)",
-    disable: "rgba(181,181,181, 1)"
+    disable: "rgba(181,181,181, 1)",
+    cool: "rgba(252, 47, 112, 1)"
   };
+
+  handleClick(ev: any) {
+    this.$emit("click", ev);
+  }
 }
 </script>
 
@@ -58,6 +70,7 @@ export default class MButton extends Vue {
   position: relative;
   z-index: 1;
   font-size: 1.5rem;
+  display: inline-block;
 }
 .m-button__middle {
   padding: 10px 18px;
@@ -72,7 +85,7 @@ export default class MButton extends Vue {
   padding: 12px 24px;
 }
 
-.m-button::before {
+.m-button-active::before {
   content: "";
   z-index: -1;
   position: absolute;
@@ -87,11 +100,23 @@ export default class MButton extends Vue {
   transition: transform 0.45s ease-in-out;
 }
 
-.m-button:hover {
+.m-button-active:hover {
   cursor: pointer;
 }
 
-.m-button:hover::before {
+.m-button-active:hover::before {
   transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+.m-button-disabled {
+  cursor: not-allowed !important;
+}
+
+.m-button.is-round {
+  border-radius: 25px;
+}
+
+.m-button.is-circle {
+  border-radius: 50%;
 }
 </style>
