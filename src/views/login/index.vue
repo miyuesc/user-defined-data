@@ -7,6 +7,21 @@
       <div>
         Password: <m-input v-model="password" type="password"></m-input>
       </div>
+
+      <m-form :model="user" :label-width="150">
+        <m-form-item
+          label="UserName:"
+          prop="username"
+          :rules="{
+            required: true,
+            message: 'Username can not be empty',
+            trigger: 'blur'
+          }"
+        >
+          <m-input v-model="user.username" type="text" clearable></m-input>
+        </m-form-item>
+      </m-form>
+
       <m-button
         style="margin-top: 16px"
         type="cool"
@@ -22,13 +37,16 @@
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
 import MInput from "@/components/Input/MInput.vue";
 import MButton from "@/components/Button/MButton.vue";
+import MFormItem from "@/components/FormItem/MFormItem.vue";
+import MForm from "@/components/Form/MForm.vue";
 @Component({
-  components: { MButton, MInput }
+  components: { MForm, MFormItem, MButton, MInput }
 })
 export default class Login extends Vue {
   username: string = "user1231";
   password: string = "";
   isLoading: boolean = false;
+  user: { username?: string; password?: string } = {};
 
   doLogin() {
     console.log(this.username + "&&" + this.password);

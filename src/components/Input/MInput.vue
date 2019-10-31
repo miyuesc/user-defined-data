@@ -26,7 +26,7 @@
       <span class="left"></span>
       <span
         class="m-input__clear"
-        v-if="clearable && currentValue"
+        v-if="clearable && currentValue && isFocus"
         @click="handleClear"
       >
       </span>
@@ -57,7 +57,7 @@ export default class MInput extends Vue {
   isFocus: boolean = false;
 
   blurFn(el: any) {
-    this.isFocus = false;
+    // this.isFocus = false;
     this.$emit("blur", el);
   }
   clickFn(el: any) {
