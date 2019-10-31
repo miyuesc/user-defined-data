@@ -22,7 +22,7 @@ export default class MForm extends Vue {
   labelWidth!: number;
   @Prop({ type: Boolean })
   inline!: boolean;
-  @Prop({ type: Boolean })
+  @Prop({ type: Boolean, default: true })
   showMessage!: boolean;
   @Prop({
     type: String,

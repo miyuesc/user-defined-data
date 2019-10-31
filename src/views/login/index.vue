@@ -1,36 +1,22 @@
 <template>
   <div class="login-page">
-    <div class="login-form" ref="loginForm">
-      <div>
-        UserName: <m-input v-model="username" type="text" clearable></m-input>
-      </div>
-      <div>
-        Password: <m-input v-model="password" type="password"></m-input>
-      </div>
+    <m-form :model="user" :label-width="80" :rules="formValidate">
+      <m-form-item label="Username:" prop="username">
+        <m-input v-model="user.username" type="text" clearable></m-input>
+      </m-form-item>
+      <m-form-item label="Password:" prop="password">
+        <m-input v-model="user.password" type="password"></m-input>
+      </m-form-item>
+    </m-form>
 
-      <m-form :model="user" :label-width="150">
-        <m-form-item
-          label="UserName:"
-          prop="username"
-          :rules="{
-            required: true,
-            message: 'Username can not be empty',
-            trigger: 'blur'
-          }"
-        >
-          <m-input v-model="user.username" type="text" clearable></m-input>
-        </m-form-item>
-      </m-form>
-
-      <m-button
-        style="margin-top: 16px"
-        type="cool"
-        size="big"
-        round
-        @click="doLogin"
-        >Login in</m-button
-      >
-    </div>
+    <m-button
+      style="margin-top: 16px"
+      type="cool"
+      size="big"
+      round
+      @click="doLogin"
+      >Login in</m-button
+    >
   </div>
 </template>
 <script lang="ts">
@@ -43,14 +29,27 @@ import MForm from "@/components/Form/MForm.vue";
   components: { MForm, MFormItem, MButton, MInput }
 })
 export default class Login extends Vue {
-  username: string = "user1231";
-  password: string = "";
   isLoading: boolean = false;
   user: { username?: string; password?: string } = {};
+  formValidate: any = {
+    username: [
+      {
+        required: true,
+        message: "The username cannot be empty",
+        trigger: "blur"
+      }
+    ],
+    password: [
+      {
+        required: true,
+        message: "The password cannot be empty",
+        trigger: "blur"
+      }
+    ]
+  };
 
   doLogin() {
-    console.log(this.username + "&&" + this.password);
-    if (this.username && this.password) {
+    if (this.user.username && this.user.password) {
       this.isLoading = true;
       this.$router.push({ path: "/root" });
     }
@@ -64,7 +63,7 @@ export default class Login extends Vue {
 
 <style scoped lang="less">
 .login-page {
-  width: 400px;
+  width: 320px;
   height: 320px;
   margin: 0 auto;
   position: absolute;
@@ -73,14 +72,8 @@ export default class Login extends Vue {
   transform: translateY(-50%) translateX(-50%);
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    font-size: 24px;
-    align-items: center;
-  }
+  color: #ffffff;
 }
 </style>

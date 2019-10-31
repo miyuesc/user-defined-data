@@ -43,7 +43,7 @@ export default class MFormItem extends Emitter {
   prop!: string;
   @Prop({ type: Boolean, default: false })
   required!: boolean;
-  @Prop({ type: [Array, Object], default: false })
+  @Prop({ type: [Array, Object], required: false })
   rules!: [any[], any];
   @Prop({ type: String })
   error!: string;
@@ -145,11 +145,11 @@ export default class MFormItem extends Emitter {
   getFilteredRule(trigger: any) {
     const rules = this.getRules();
     return rules.filter(
-      rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
+      (rule: any) => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
     );
   }
-  validate(trigger: any, callback = function() {}) {
-    let rules = this.getFilteredRule(trigger);
+  validate(trigger: any, callback = function(e?: string) {}) {
+    let rules: any[] = this.getFilteredRule(trigger);
     if (!rules || rules.length === 0) {
       if (!this.required) {
         callback();
@@ -202,7 +202,7 @@ export default class MFormItem extends Emitter {
 
   mounted() {
     if (this.prop) {
-      this.dispatch("iForm", "on-form-item-add", this);
+      this.dispatch("MForm", "on-form-item-add", this);
       Object.defineProperty(this, "initialValue", {
         value: this.fieldValue
       });
@@ -210,9 +210,7 @@ export default class MFormItem extends Emitter {
     }
   }
   beforeDestroy() {
-    this.dispatch("iForm", "on-form-item-remove", this);
+    this.dispatch("MForm", "on-form-item-remove", this);
   }
 }
 </script>
-
-<style scoped lang="less"></style>
