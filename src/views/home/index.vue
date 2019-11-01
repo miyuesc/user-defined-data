@@ -45,7 +45,11 @@
       </template>
       <template v-else>
         <div class="empty">
-          <img class="empty-image" src="" alt="no-project" />
+          <img
+            class="empty-image"
+            src="../../assets/svg/data-empty.svg"
+            alt="no-project"
+          />
           <div class="new-project" @click="addProject = true">+ 新建项目</div>
         </div>
       </template>
@@ -54,7 +58,14 @@
       <div class="dialog-header">
         <div class="dialog-title">选择模板</div>
       </div>
-      <div class="dialog-body"></div>
+      <div class="dialog-body">
+        <div class="template-item" v-for="(i, k) in templates" :key="k">
+          <p class="template-name">{{ i.name }}</p>
+          <div class="template-img">
+            <img :src="i.src" :alt="i.name" />
+          </div>
+        </div>
+      </div>
       <div class="dialog-footer">
         <m-button size="small" type="normal" @click="addProject = false"
           >取消</m-button
@@ -79,6 +90,21 @@ export default class Home extends Vue {
 
   selected: number = 0;
   addProject: boolean = false;
+
+  templates: any[] = [
+    {
+      name: "模板一",
+      src: require("@/assets/favicon_64x64.png")
+    },
+    {
+      name: "模板二",
+      src: require("@/assets/favicon_64x64.png")
+    },
+    {
+      name: "模板三",
+      src: require("@/assets/favicon_64x64.png")
+    }
+  ];
 
   hasCheck() {
     this.addProject = false;
@@ -180,7 +206,8 @@ export default class Home extends Vue {
       justify-content: center;
       align-items: center;
       .empty-image {
-        height: 620px;
+        height: 320px;
+        margin: 150px 0;
       }
     }
     .new-project {
@@ -220,6 +247,17 @@ export default class Home extends Vue {
       line-height: 48px;
     }
     .dialog-body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .template-name {
+        font-size: 18px;
+        line-height: 42px;
+        padding-bottom: 12px;
+      }
+      img {
+        width: 100px;
+      }
     }
     .dialog-footer {
       height: 66px;

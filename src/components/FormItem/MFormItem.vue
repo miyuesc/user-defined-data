@@ -77,8 +77,6 @@ export default class MFormItem extends Emitter {
   }
   get fieldValue() {
     const model = this.form.model;
-    console.log(this.form.model);
-    console.log(this.prop);
     if (model && this.prop) {
       let path = this.prop;
       if (path.indexOf(":") !== -1) {
@@ -126,7 +124,6 @@ export default class MFormItem extends Emitter {
 
   setRules() {
     let rules = this.getRules();
-    console.log(rules);
     if (rules.length && this.required) {
       return;
     } else if (rules.length) {
@@ -167,8 +164,6 @@ export default class MFormItem extends Emitter {
     let descriptor: any = {};
     descriptor[this.prop] = rules;
     const validator = new AsyncValidator(descriptor);
-    console.log(descriptor);
-    console.log(validator);
     let model: any = {};
     model[this.prop] = this.fieldValue;
     validator.validate(model, { firstFields: true }, errors => {

@@ -95,7 +95,6 @@ export default class MForm extends Vue {
       if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
       return false;
     });
-    console.log(this.model);
   }
 
   @Provide("form")
