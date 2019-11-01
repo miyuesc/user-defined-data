@@ -6,7 +6,8 @@
 
 <style lang="less">
 html,
-body {
+body,
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

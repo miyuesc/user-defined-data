@@ -33,9 +33,6 @@ export default class MForm extends Vue {
   })
   labelPosition!: string;
 
-  @Provide("form")
-  form = this;
-
   // form: any = this;
   prefixCls: string = "m-form";
   fields: any[] = [];
@@ -51,16 +48,16 @@ export default class MForm extends Vue {
   }
 
   resetFields() {
-    this.fields.forEach(field => {
+    this.fields.forEach((field: any) => {
       field.resetField();
     });
   }
   validate(callback?: Function) {
     return new Promise(resolve => {
-      let valid = true;
-      let count = 0;
+      let valid: boolean = true;
+      let count: number = 0;
       this.fields.forEach(field => {
-        field.validate("", (errors: any) => {
+        field.validate((e: string = "", errors: any) => {
           if (errors) {
             valid = false;
           }
@@ -98,7 +95,11 @@ export default class MForm extends Vue {
       if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
       return false;
     });
+    console.log(this.model);
   }
+
+  @Provide("form")
+  form: any = this;
 }
 </script>
 

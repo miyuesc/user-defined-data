@@ -1,8 +1,5 @@
 <template>
-  <div class="layout">
-    <div class="header">这是头部</div>
-    <router-view />
-  </div>
+  <router-view />
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";

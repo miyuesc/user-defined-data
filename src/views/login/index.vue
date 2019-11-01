@@ -12,11 +12,16 @@
     <m-button
       style="margin-top: 16px"
       type="cool"
-      size="big"
+      size="small"
       round
       @click="doLogin"
       >Login in</m-button
     >
+
+    <div class="tip">
+      <p>用户名：admin</p>
+      <p>密码：admin</p>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -49,14 +54,12 @@ export default class Login extends Vue {
   };
 
   doLogin() {
-    if (this.user.username && this.user.password) {
+    if (this.user.username === "admin" && this.user.password === "admin") {
       this.isLoading = true;
       this.$router.push({ path: "/root" });
+    } else {
+      alert("用户名或者密码错误");
     }
-  }
-
-  testFn(str: string) {
-    console.log(str);
   }
 }
 </script>
@@ -75,5 +78,16 @@ export default class Login extends Vue {
   align-items: center;
   flex-direction: column;
   color: #ffffff;
+}
+.tip {
+  position: fixed;
+  right: -100px;
+  bottom: -100px;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(252, 31, 107, 0.5);
 }
 </style>

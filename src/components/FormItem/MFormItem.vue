@@ -49,6 +49,8 @@ export default class MFormItem extends Emitter {
   error!: string;
   @Prop({ type: Boolean, default: true })
   showMessage!: boolean;
+  @Prop({ type: Boolean })
+  validateStatus!: boolean;
   @Prop({ type: String })
   labelFor!: string;
 
@@ -75,6 +77,8 @@ export default class MFormItem extends Emitter {
   }
   get fieldValue() {
     const model = this.form.model;
+    console.log(this.form.model);
+    console.log(this.prop);
     if (model && this.prop) {
       let path = this.prop;
       if (path.indexOf(":") !== -1) {
@@ -122,6 +126,7 @@ export default class MFormItem extends Emitter {
 
   setRules() {
     let rules = this.getRules();
+    console.log(rules);
     if (rules.length && this.required) {
       return;
     } else if (rules.length) {
@@ -140,7 +145,7 @@ export default class MFormItem extends Emitter {
     let formRules = this.form.rules;
     const selfRules = this.rules;
     formRules = formRules ? formRules[this.prop] : [];
-    return [].concat([] || formRules || selfRules);
+    return [].concat(formRules || selfRules || []);
   }
   getFilteredRule(trigger: any) {
     const rules = this.getRules();
@@ -162,6 +167,8 @@ export default class MFormItem extends Emitter {
     let descriptor: any = {};
     descriptor[this.prop] = rules;
     const validator = new AsyncValidator(descriptor);
+    console.log(descriptor);
+    console.log(validator);
     let model: any = {};
     model[this.prop] = this.fieldValue;
     validator.validate(model, { firstFields: true }, errors => {
@@ -183,10 +190,10 @@ export default class MFormItem extends Emitter {
     let prop = getPropByPath(model, path);
     if (Array.isArray(value)) {
       this.validateDisabled = true;
-      prop.o[prop.k] = [].concat(this.initialValue);
+      prop.o[prop.k] = [].concat((this.resetField as any).initialValue);
     } else {
       this.validateDisabled = true;
-      prop.o[prop.k] = this.initialValue;
+      prop.o[prop.k] = (this.resetField as any).initialValue;
     }
   }
   onFieldBlur() {

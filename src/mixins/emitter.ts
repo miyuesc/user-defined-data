@@ -1,24 +1,11 @@
-import Vue from "vue";
+import { broadcast } from "@/utils/utils";
+import { Vue, Component } from "vue-property-decorator";
 
-function broadcast(componentName: string, eventName: string, params: any) {
-  // @ts-ignore
-  this.$children.forEach((child: any) => {
-    const name = child.$options.name;
-
-    if (name === componentName) {
-      child.$emit.apply(child, [eventName].concat(params));
-    } else {
-      // todo 如果 params 是空数组，接收到的会是 undefined
-      // @ts-ignore
-      broadcast.apply(child, [componentName, eventName].concat([params]));
-    }
-  });
-}
+@Component
 export default class Emitter extends Vue {
   dispatch(componentName: string, eventName: string, params: any) {
-    // @ts-ignore
-    let parent = this.$parent || this.$root;
-    let name = parent.$options.name;
+    let parent: any = this.$parent || this.$root;
+    let name: string = parent.$options.name;
 
     while (parent && (!name || name !== componentName)) {
       parent = parent.$parent;
@@ -28,10 +15,10 @@ export default class Emitter extends Vue {
       }
     }
     if (parent) {
-      // @ts-ignore
       parent.$emit.apply(parent, [eventName].concat(params));
     }
   }
+
   broadcast(componentName: string, eventName: string, params: any) {
     broadcast.call(this, componentName, eventName, params);
   }
