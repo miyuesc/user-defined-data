@@ -1,10 +1,7 @@
 <template>
   <div class="m-input">
     <slot name="prefix"></slot>
-    <div
-      class="m-input__content"
-      :class="disabled ? 'm-input-is-disabled' : ''"
-    >
+    <div class="m-input__content" :class="disabled ? 'm-input-is-disabled' : ''">
       <input
         :type="type"
         ref="MInput"
@@ -24,12 +21,7 @@
       <span class="right"></span>
       <span class="top"></span>
       <span class="left"></span>
-      <span
-        class="m-input__clear"
-        v-if="clearable && currentValue && isFocus"
-        @click="handleClear"
-      >
-      </span>
+      <span class="m-input__clear" v-if="clearable && currentValue && isFocus" @click="handleClear"> </span>
     </div>
     <slot name="suffix"></slot>
   </div>

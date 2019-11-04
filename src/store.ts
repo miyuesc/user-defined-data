@@ -8,8 +8,7 @@ export default new Vuex.Store({
     userInfo: {
       username: "admin",
       name: "管理员",
-      userIcon:
-        "http://ww1.sinaimg.cn/large/0067sbCSly1g4ef4ho1ilj30m80m8ab7.jpg"
+      userIcon: "http://ww1.sinaimg.cn/large/0067sbCSly1g4ef4ho1ilj30m80m8ab7.jpg"
     },
     projects: []
   },

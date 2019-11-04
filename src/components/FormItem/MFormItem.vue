@@ -1,20 +1,12 @@
 <template>
   <div :class="classes">
-    <label
-      :class="[prefixCls + `-label`]"
-      :for="labelFor"
-      :style="labelStyles"
-      v-if="label || $slots.label"
-    >
+    <label :class="[prefixCls + `-label`]" :for="labelFor" :style="labelStyles" v-if="label || $slots.label">
       <slot name="label">{{ label }}</slot>
     </label>
     <div :class="[prefixCls + '-content']" :style="contentStyles">
       <slot></slot>
       <transition name="fade">
-        <div
-          :class="[prefixCls + '-error-tip']"
-          v-if="validateState === 'error' && showMessage && form.showMessage"
-        >
+        <div :class="[prefixCls + '-error-tip']" v-if="validateState === 'error' && showMessage && form.showMessage">
           {{ validateMessage }}
         </div>
       </transition>
@@ -88,10 +80,7 @@ export default class MFormItem extends Emitter {
   }
   get labelStyles() {
     let style: any = {};
-    const labelWidth =
-      this.labelWidth === 0 || this.labelWidth
-        ? this.labelWidth
-        : this.form.labelWidth;
+    const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.form.labelWidth;
     if (labelWidth || labelWidth === 0) {
       style.width = `${labelWidth}px`;
     }
@@ -99,10 +88,7 @@ export default class MFormItem extends Emitter {
   }
   get contentStyles() {
     let style: any = {};
-    const labelWidth =
-      this.labelWidth === 0 || this.labelWidth
-        ? this.labelWidth
-        : this.form.labelWidth;
+    const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.form.labelWidth;
     if (labelWidth || labelWidth === 0) {
       style.marginLeft = `${labelWidth}px`;
     }
@@ -146,9 +132,7 @@ export default class MFormItem extends Emitter {
   }
   getFilteredRule(trigger: any) {
     const rules = this.getRules();
-    return rules.filter(
-      (rule: any) => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
-    );
+    return rules.filter((rule: any) => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
   }
   validate(trigger: any, callback = function(e?: string) {}) {
     let rules: any[] = this.getFilteredRule(trigger);

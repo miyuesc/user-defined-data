@@ -28,11 +28,7 @@ export const oneOf = (value: string, validList: string[]) => {
   return false;
 };
 
-export const broadcast = (
-  componentName: string,
-  eventName: string,
-  params: any
-) => {
+export const broadcast = (componentName: string, eventName: string, params: any) => {
   // @ts-ignore
   this.$children.forEach((child: any) => {
     const name: string = child.$options.name;
@@ -41,10 +37,7 @@ export const broadcast = (
       child.$emit.apply(child, [eventName].concat(params));
     } else {
       // todo 如果 params 是空数组，接收到的会是 undefined
-      (broadcast as any).apply(
-        child,
-        [componentName, eventName].concat([params])
-      );
+      (broadcast as any).apply(child, [componentName, eventName].concat([params]));
     }
   });
 };

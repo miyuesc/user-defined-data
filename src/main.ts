@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import "@/components/styles/index.less";
+import "remixicon/fonts/remixicon.css";
 
 Vue.config.productionTip = false;
 

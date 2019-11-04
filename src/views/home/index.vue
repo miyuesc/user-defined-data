@@ -2,33 +2,17 @@
   <div class="home-page">
     <div class="header">
       <div class="m-ico">
-        <img
-          class="m-ico__img"
-          src="../../assets/favicon_64x64.png"
-          alt="ico"
-        />
+        <img class="m-ico__img" src="../../assets/favicon_64x64.png" alt="ico" />
         <p>MData</p>
       </div>
       <div class="m-tabs">
-        <p
-          class="m-collect"
-          :class="selected === 0 ? 'selected' : ''"
-          @click="selected = 0"
-        >
+        <p class="m-collect" :class="selected === 0 ? 'selected' : ''" @click="selected = 0">
           我的项目
         </p>
-        <p
-          class="m-collect"
-          :class="selected === 1 ? 'selected' : ''"
-          @click="selected = 1"
-        >
+        <p class="m-collect" :class="selected === 1 ? 'selected' : ''" @click="selected = 1">
           收藏列表
         </p>
-        <p
-          class="m-collect"
-          :class="selected === 2 ? 'selected' : ''"
-          @click="selected = 2"
-        >
+        <p class="m-collect" :class="selected === 2 ? 'selected' : ''" @click="selected = 2">
           我发布的
         </p>
       </div>
@@ -45,11 +29,7 @@
       </template>
       <template v-else>
         <div class="empty">
-          <img
-            class="empty-image"
-            src="../../assets/svg/data-empty.svg"
-            alt="no-project"
-          />
+          <img class="empty-image" src="../../assets/svg/data-empty.svg" alt="no-project" />
           <div class="new-project" @click="addProject = true">+ 新建项目</div>
         </div>
       </template>
@@ -67,9 +47,7 @@
         </div>
       </div>
       <div class="dialog-footer">
-        <m-button size="small" type="normal" @click="addProject = false"
-          >取消</m-button
-        >
+        <m-button size="small" type="normal" @click="addProject = false">取消</m-button>
         <m-button size="small" @click="hasCheck">确认</m-button>
       </div>
     </div>
@@ -153,6 +131,7 @@ export default class Home extends Vue {
         line-height: 32px;
         margin: 0 24px;
         position: relative;
+        box-sizing: border-box;
         &::before {
           content: "";
           width: 0;

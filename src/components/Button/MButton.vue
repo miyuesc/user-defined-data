@@ -1,5 +1,5 @@
 <template>
-  <button
+  <div
     ref="MButton"
     class="m-button"
     :class="[
@@ -16,7 +16,7 @@
     @click="handleClick"
   >
     <slot></slot>
-  </button>
+  </div>
 </template>
 
 <script lang="ts">
