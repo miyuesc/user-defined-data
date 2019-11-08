@@ -2,15 +2,10 @@ import AV from "../utils/leancloud";
 
 export const doSignIn = async (username: string, password: string) => {
   return new Promise((resolve, reject) => {
-    AV.User.logIn(username, password).then(
-      (userInfo: any) => {
-        resolve(userInfo);
-      },
-      (error: any) => {
-        if (error.code === "211") alert("用户或者密码错误");
-        reject(error);
-      }
-    );
+    AV.User.logIn(username, password).then((userInfo: any) => {
+      console.log(userInfo);
+      resolve(userInfo);
+    });
   });
 };
 
