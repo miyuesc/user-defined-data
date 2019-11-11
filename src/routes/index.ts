@@ -15,6 +15,11 @@ const routes: {
         path: "/root",
         name: "home",
         component: () => import("@/views/home/index.vue")
+      },
+      {
+        path: "/build",
+        name: "build",
+        component: () => import("@/views/editPages/index.vue")
       }
     ]
   },

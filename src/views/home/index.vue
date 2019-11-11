@@ -34,23 +34,25 @@
         </div>
       </template>
     </div>
-    <div v-if="addProject" class="add-project-dialog">
-      <div class="dialog-header">
-        <div class="dialog-title">选择模板</div>
-      </div>
-      <div class="dialog-body">
-        <div class="template-item" v-for="(i, k) in templates" :key="k">
-          <p class="template-name">{{ i.name }}</p>
-          <div class="template-img">
-            <img :src="i.src" :alt="i.name" />
+    <transition name="fade">
+      <div v-show="addProject" class="add-project-dialog">
+        <div class="dialog-header">
+          <div class="dialog-title">选择模板</div>
+        </div>
+        <div class="dialog-body">
+          <div class="template-item" v-for="(i, k) in templates" :key="k">
+            <p class="template-name">{{ i.name }}</p>
+            <div class="template-img" @click="buildNewProject(i)">
+              <img :src="i.src" :alt="i.name" />
+            </div>
           </div>
         </div>
+        <div class="dialog-footer">
+          <m-button size="small" type="normal" @click="addProject = false">取消</m-button>
+          <m-button size="small" @click="hasCheck">确认</m-button>
+        </div>
       </div>
-      <div class="dialog-footer">
-        <m-button size="small" type="normal" @click="addProject = false">取消</m-button>
-        <m-button size="small" @click="hasCheck">确认</m-button>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script lang="ts">
@@ -86,6 +88,12 @@ export default class Home extends Vue {
 
   hasCheck() {
     this.addProject = false;
+  }
+
+  buildNewProject(item: any) {
+    this.$router.push({
+      path: "build"
+    });
   }
 
   created() {}
@@ -248,5 +256,12 @@ export default class Home extends Vue {
       }
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition name="transitionRouter" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -24,5 +26,14 @@ body,
   padding: 0;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
+}
+.transitionRouter-enter-active,
+.transitionRouter-leave-active {
+  transition: all 0.4s;
+}
+.transitionRouter-enter,
+.transitionRouter-leave {
+  transform: translate3d(100%, 0, 0);
 }
 </style>
