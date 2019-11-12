@@ -3,17 +3,20 @@
     <div class="build-page-header">
       <div class="icon-and-back">
         <div class="back"></div>
-        <p class="icon">MData</p>
+        <p class="icon-main">MData</p>
       </div>
       <p class="project-name">
         {{ `测试项目  ${new Date().toLocaleString()}` }}
       </p>
       <div class="control-button-group">
+        <p class="control-button preview-button">分享</p>
+        <p class="control-button preview-button">发布</p>
         <p class="control-button preview-button">预览</p>
         <p class="control-button save-button">保存</p>
       </div>
     </div>
-    <div class="preview-page"></div>
+    <tool-bar :scale="pageScale" @amplification="amplificationPage" @narrow="narrowPage"></tool-bar>
+    <pre-page :scale="pageScale / 100"></pre-page>
   </div>
 </template>
 
@@ -25,9 +28,22 @@
  **/
 
 import { Vue, Component } from "vue-property-decorator";
+import ToolBar from "@/components/ToolBar.vue";
+import PrePage from "@/components/PrePage.vue";
 
-@Component({})
-export default class Index extends Vue {}
+@Component({
+  components: { PrePage, ToolBar }
+})
+export default class Index extends Vue {
+  pageScale: number = 70;
+
+  amplificationPage() {
+    this.pageScale += 10;
+  }
+  narrowPage() {
+    this.pageScale -= 10;
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -63,7 +79,7 @@ export default class Index extends Vue {}
           content: "\276C";
         }
       }
-      .icon {
+      .icon-main {
         line-height: 40px;
         font-size: 24px;
         color: #dfdfdf;
