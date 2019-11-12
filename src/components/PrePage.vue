@@ -1,5 +1,7 @@
 <template>
-  <div class="pre-page-container" :style="styles"></div>
+  <div class="pre-page-container" :style="styles" @click="$emit('click')">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">

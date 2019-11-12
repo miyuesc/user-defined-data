@@ -87,9 +87,10 @@ export default class ToolBar extends Vue {
     display: inline-flex;
     li {
       margin: 0 8px;
+      color: #802cad;
       &:hover {
         cursor: pointer;
-        color: #ffffff;
+        color: #c836ff;
       }
     }
     .cut-off-line {
@@ -97,6 +98,7 @@ export default class ToolBar extends Vue {
       color: #454651;
       &:hover {
         cursor: default;
+        color: #454651;
       }
     }
   }

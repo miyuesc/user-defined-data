@@ -16,7 +16,24 @@
       </div>
     </div>
     <tool-bar :scale="pageScale" @amplification="amplificationPage" @narrow="narrowPage"></tool-bar>
-    <pre-page :scale="pageScale / 100"></pre-page>
+    <pre-page :scale="pageScale / 100">
+      <drag-resize
+        v-for="(i, index) in charts"
+        :key="index"
+        :isActive="active === i.chartName"
+        :w="i.divConfig.width"
+        :h="i.divConfig.height"
+        :x="i.divConfig.left"
+        :y="i.divConfig.top"
+        :z="active === i.chartName ? 10000 : i.zIndex"
+        :minw="160"
+        :minh="90"
+        :parentLimitation="true"
+        @activated="configChartOption(i, index)"
+      >
+        <div style="height: 100%; width: 100%; background: #fc2f70"></div>
+      </drag-resize>
+    </pre-page>
   </div>
 </template>
 
@@ -30,18 +47,45 @@
 import { Vue, Component } from "vue-property-decorator";
 import ToolBar from "@/components/ToolBar.vue";
 import PrePage from "@/components/PrePage.vue";
+import DragResize from "@/components/DragResize.vue";
 
 @Component({
-  components: { PrePage, ToolBar }
+  components: { DragResize, PrePage, ToolBar }
 })
 export default class Index extends Vue {
   pageScale: number = 70;
+  charts: any[] = [
+    {
+      chartName: "div1",
+      divConfig: {
+        width: 200,
+        height: 120,
+        left: 200,
+        top: 111
+      },
+      zIndex: 10
+    },
+    {
+      chartName: "div2",
+      divConfig: {
+        width: 530,
+        height: 420,
+        left: 590,
+        top: 251
+      },
+      zIndex: 11
+    }
+  ];
+  active: string = "";
 
   amplificationPage() {
     this.pageScale += 10;
   }
   narrowPage() {
     this.pageScale -= 10;
+  }
+  configChartOption(chart: any, index: number) {
+    this.active = chart.chartName;
   }
 }
 </script>
@@ -112,6 +156,13 @@ export default class Index extends Vue {
         }
       }
     }
+  }
+  .inner-charts-zone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
