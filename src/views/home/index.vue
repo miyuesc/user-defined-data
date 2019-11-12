@@ -2,8 +2,8 @@
   <div class="home-page">
     <div class="header">
       <div class="m-ico">
-        <img class="m-ico__img" src="../../assets/favicon_64x64.png" alt="ico" />
-        <p>MData</p>
+        <img class="m-ico__img" src="../../assets/logo.png" alt="ico" />
+        <!--        <p>MData</p>-->
       </div>
       <div class="m-tabs">
         <p class="m-collect" :class="selected === 0 ? 'selected' : ''" @click="selected = 0">
@@ -127,7 +127,7 @@ export default class Home extends Vue {
       text-indent: 12px;
       .m-ico__img {
         max-height: 32px;
-        max-width: 32px;
+        /*max-width: 32px;*/
       }
     }
     .m-tabs {

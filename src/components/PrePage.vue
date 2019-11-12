@@ -1,7 +1,7 @@
 <template>
-  <div class="pre-page-container" :style="styles" @click="$emit('click')">
+  <div class="pre-page-container" :style="styles">
     <slot></slot>
-    <canvas id="demo-canvas" class="pre-page-background"></canvas>
+    <canvas id="demo-canvas" class="pre-page-background" @click="$emit('click')"></canvas>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
  **/
 
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import { draw } from "@/components/drawCanvas";
+import { draw } from "@/utils/drawCanvas";
 
 @Component({})
 export default class PrePage extends Vue {

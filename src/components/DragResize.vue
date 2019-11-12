@@ -16,8 +16,8 @@
       @touchstart.stop.prevent="stickDown(stick, $event)"
       :style="vdrStick(stick)"
     ></div>
-    <div v-if="isActive" class="drag-guide-line vertical-line" :style="verticalStyle"></div>
-    <div v-if="isActive" class="drag-guide-line horizontal-line" :style="horizontalStyle"></div>
+    <div v-if="isActive && isMoving" class="drag-guide-line vertical-line" :style="verticalStyle"></div>
+    <div v-if="isActive && isMoving" class="drag-guide-line horizontal-line" :style="horizontalStyle"></div>
     <!--    <div v-if="isActive" class="vdr-stick-delete" @click="deleteElementEvent($event)">-->
     <!--      <i class="el-icon-delete"></i>-->
     <!--    </div>-->
@@ -177,7 +177,8 @@ export default {
       right: null,
       bottom: null,
       minWidth: this.minw,
-      minHeight: this.minh
+      minHeight: this.minh,
+      isMoving: false
     };
   },
 
@@ -338,6 +339,7 @@ export default {
     },
 
     bodyMove(ev) {
+      this.isMoving = true;
       const stickStartPos = this.stickStartPos;
 
       let delta = {
@@ -353,6 +355,7 @@ export default {
     },
 
     bodyUp() {
+      this.isMoving = false;
       this.bodyDrag = false;
       this.$emit("dragging", this.rect);
       this.$emit("dragstop", this.rect);

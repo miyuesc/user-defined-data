@@ -2,8 +2,8 @@
   <div class="build-main-page">
     <div class="build-page-header">
       <div class="icon-and-back">
-        <div class="back"></div>
-        <p class="icon-main">MData</p>
+        <div class="back" @click="$router.push({ path: '/root' })"></div>
+        <img src="../../assets/logo.png" class="icon-main" alt="mydata-logo" />
       </div>
       <p class="project-name">
         {{ `测试项目  ${new Date().toLocaleString()}` }}
@@ -16,7 +16,7 @@
       </div>
     </div>
     <tool-bar :scale="pageScale" @amplification="amplificationPage" @narrow="narrowPage"></tool-bar>
-    <pre-page :scale="pageScale / 100">
+    <pre-page :scale="pageScale / 100" @click="active = 'prePage'">
       <drag-resize
         v-for="(i, index) in charts"
         :key="index"
@@ -29,11 +29,13 @@
         :minw="160"
         :minh="90"
         :parentLimitation="true"
+        @dragging="configDragging(i, $event)"
         @activated="configChartOption(i, index)"
       >
         <div style="height: 100%; width: 100%; background: #fc2f70"></div>
       </drag-resize>
     </pre-page>
+    <demo-type-menu></demo-type-menu>
   </div>
 </template>
 
@@ -48,9 +50,10 @@ import { Vue, Component } from "vue-property-decorator";
 import ToolBar from "@/components/ToolBar.vue";
 import PrePage from "@/components/PrePage.vue";
 import DragResize from "@/components/DragResize.vue";
+import DemoTypeMenu from "@/components/DemoTypeMenu.vue";
 
 @Component({
-  components: { DragResize, PrePage, ToolBar }
+  components: {DemoTypeMenu, DragResize, PrePage, ToolBar }
 })
 export default class Index extends Vue {
   pageScale: number = 70;
@@ -85,6 +88,9 @@ export default class Index extends Vue {
     this.pageScale -= 10;
   }
   configChartOption(chart: any, index: number) {
+    // this.active = chart.chartName;
+  }
+  configDragging(chart: any, data: any) {
     this.active = chart.chartName;
   }
 }
@@ -125,16 +131,17 @@ export default class Index extends Vue {
       }
       .icon-main {
         line-height: 40px;
+        max-height: 32px;
         font-size: 24px;
         color: #dfdfdf;
-        margin: 0 12px;
+        margin: 4px 12px;
         font-weight: bolder;
         font-style: italic;
       }
     }
     .project-name {
       line-height: 40px;
-      font-size: 16px;
+      font-size: 14px;
       color: #dfdfdf;
     }
     .control-button-group {

@@ -44,7 +44,7 @@
           <use xlink:href="#m-icon-minus-circle"></use>
         </svg>
       </li>
-      <li>{{ scale }} %</li>
+      <li class="cut-off-line" style="color: #7c7d8a">{{ scale }} %</li>
       <li @click="$emit('amplification')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#m-icon-plus-circle"></use>
@@ -91,6 +91,9 @@ export default class ToolBar extends Vue {
       &:hover {
         cursor: pointer;
         color: #c836ff;
+      }
+      &::selection {
+        background: none;
       }
     }
     .cut-off-line {

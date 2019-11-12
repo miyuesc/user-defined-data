@@ -32,8 +32,11 @@ body,
 .transitionRouter-leave-active {
   transition: all 0.4s;
 }
-.transitionRouter-enter,
-.transitionRouter-leave {
+.transitionRouter-enter {
   transform: translate3d(100%, 0, 0);
+}
+
+.transitionRouter-leave {
+  transform: translateX(-100%);
 }
 </style>
