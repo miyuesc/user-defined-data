@@ -917,7 +917,7 @@ export default {
 .drag-guide-line {
   border: 1px red dotted;
   position: relative;
-  box-sizing: border-box;
+  box-sizing: content-box;
   z-index: 1;
   pointer-events: none !important;
 }

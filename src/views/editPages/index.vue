@@ -33,15 +33,7 @@
         @resizing="configResize(i, $event)"
         @activated="configChartOption(i, index)"
       >
-        <line-chart
-          :width="i.divConfig.width"
-          :height="i.divConfig.height"
-          v-bind:style="{
-            width: i.divConfig.width + 'px',
-            height: i.divConfig.height + 'px',
-            backgroundColor: '#2e2e4c'
-          }"
-        ></line-chart>
+        <line-chart title="请输入标题" unit="单位" :width="i.divConfig.width" :height="i.divConfig.height" background-style="purple"></line-chart>
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>

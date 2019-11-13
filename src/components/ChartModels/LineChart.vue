@@ -1,5 +1,11 @@
 <template>
-  <div class="line-chart" ref="line" :style="styles"></div>
+  <div :style="styles">
+    <div class="header">
+      <p class="chart-title" :style="{ fontSize: `${fontSize + 6}px` }">{{ title }}</p>
+      <p class="chart-unit" v-show="showUnit">单位：{{ unit }}</p>
+    </div>
+    <div class="line-chart" ref="line" :style="chartStyles"></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,6 +17,7 @@
 
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import echarts from "echarts";
+import { colors } from "@/utils/background";
 
 @Component({})
 export default class LineChart extends Vue {
@@ -20,18 +27,35 @@ export default class LineChart extends Vue {
   width!: number;
   @Prop({ type: Array })
   colors!: string[];
-  @Prop({ type: String })
+  @Prop({ type: String, default: "lightblue" })
   backgroundStyle!: string;
-  @Prop({ type: Number })
+  @Prop({ type: Number, default: 1 })
   backgroundOpacity!: number;
-  @Prop({ type: Number, default: 4 })
+  @Prop({ type: Number, default: 8 })
   borderRadius!: number;
+  @Prop({ type: Number, default: 12 })
+  fontSize!: number;
   @Prop({ type: String })
   title!: string;
+  @Prop({ type: String })
+  unit!: string;
+  @Prop({ type: Boolean, default: false })
+  smooth!: boolean;
+  @Prop({ type: Boolean, default: false })
+  showLine!: boolean;
+  @Prop({ type: Boolean, default: true })
+  showAxis!: boolean;
+  @Prop({ type: Boolean, default: true })
+  showUnit!: boolean;
+  @Prop({ type: Boolean, default: true })
+  animation!: boolean;
   @Prop({ type: Object })
   data!: any;
   @Prop({ type: String })
   url!: string;
+
+  @Prop({ type: Object })
+  legendRich!: any;
 
   lineChart: any = null;
   defaultData: any = {
@@ -41,10 +65,22 @@ export default class LineChart extends Vue {
   };
 
   get styles() {
-    let style: { width?: string; height?: string } = {};
+    let style: any = {};
     style.width = `${this.width}px`;
     style.height = `${this.height}px`;
+    style.borderRadius = `${this.borderRadius}px`;
+    if (this.backgroundOpacity !== 0) {
+      style.background = `linear-gradient(45deg, ${colors[this.backgroundStyle].background.join(",")})`;
+    }
+
     if (this.lineChart) this.lineChart.resize();
+    return style;
+  }
+
+  get chartStyles() {
+    let style: any = {};
+    style.width = `${this.width}px`;
+    style.height = `${this.height - 40}px`;
     return style;
   }
 
@@ -54,14 +90,55 @@ export default class LineChart extends Vue {
   setOptions(data: any) {
     this.$nextTick(() => {
       this.lineChart.setOption({
+        color: colors[this.backgroundStyle].chart,
+        animation: this.animation,
+        animationDelayUpdate: function(idx: number) {
+          return idx * 5;
+        },
         legend: {
-          data: data.legend
+          data: data.legend,
+          top: 16,
+          textStyle: {
+            fontSize: this.fontSize,
+            color: "#ffffff",
+            rich: this.legendRich ? this.legendRich : {}
+          }
+        },
+        grid: {
+          top: 60,
+          left: 20,
+          bottom: 20,
+          right: 20,
+          containLabel: true
         },
         xAxis: {
-          data: data.label
+          data: data.label,
+          show: this.showAxis,
+          axisLabel: {
+            color: "#ffffff"
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#ffffff"
+            }
+          },
+          splitLine: {
+            show: false
+          }
         },
         yAxis: {
-          show: true
+          show: this.showAxis,
+          axisLabel: {
+            color: "#ffffff"
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#ffffff"
+            }
+          },
+          splitLine: {
+            show: false
+          }
         },
         series: data.value.map((i: number[], k: number) => {
           return {
@@ -84,4 +161,19 @@ export default class LineChart extends Vue {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.header {
+  height: 40px;
+  max-height: 40px;
+  width: 100%;
+  color: #ffffff;
+  display: inline-flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 6px 24px;
+  overflow: hidden;
+}
+.line-chart {
+  overflow: hidden;
+}
+</style>
