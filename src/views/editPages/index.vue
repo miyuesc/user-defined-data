@@ -25,7 +25,7 @@
         :h="i.divConfig.height"
         :x="i.divConfig.left"
         :y="i.divConfig.top"
-        :z="active === i.chartName ? 10000 : i.zIndex"
+        :z="i.zIndex"
         :minw="160"
         :minh="90"
         :parentLimitation="true"
@@ -33,7 +33,14 @@
         @resizing="configResize(i, $event)"
         @activated="configChartOption(i, index)"
       >
-        <line-chart title="请输入标题" unit="单位" :width="i.divConfig.width" :height="i.divConfig.height" background-style="purple"></line-chart>
+        <line-chart
+          :background-opacity="0.5"
+          title="请输入标题"
+          unit="单位"
+          :width="i.divConfig.width"
+          :height="i.divConfig.height"
+          background-style="black"
+        ></line-chart>
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>

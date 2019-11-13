@@ -56,6 +56,10 @@ export default class LineChart extends Vue {
 
   @Prop({ type: Object })
   legendRich!: any;
+  @Prop({ type: Object })
+  itemRich!: any;
+  @Prop({ type: Object })
+  emphasisRich!: any;
 
   lineChart: any = null;
   defaultData: any = {
@@ -69,11 +73,18 @@ export default class LineChart extends Vue {
     style.width = `${this.width}px`;
     style.height = `${this.height}px`;
     style.borderRadius = `${this.borderRadius}px`;
-    if (this.backgroundOpacity !== 0) {
-      style.background = `linear-gradient(45deg, ${colors[this.backgroundStyle].background.join(",")})`;
+    if (this.backgroundOpacity !== 1) {
+      let opacity: string[] = colors[this.backgroundStyle].background.split(",");
+      opacity[3] = `${this.backgroundOpacity})`;
+      style.background = opacity.join(",");
+    } else {
+      style.background = colors[this.backgroundStyle].background;
     }
 
-    if (this.lineChart) this.lineChart.resize();
+    if (this.lineChart)
+      setTimeout(() => {
+        this.lineChart.resize();
+      }, 1);
     return style;
   }
 
@@ -84,70 +95,80 @@ export default class LineChart extends Vue {
     return style;
   }
 
+  get chartOptions() {
+    let color: string[] = colors[this.backgroundStyle].chart;
+    let legendRich: any = this.legendRich ? this.legendRich : {};
+    let fontSize: number = this.fontSize;
+    let axisStatus: boolean = this.showAxis;
+    let chartAnimation: boolean = this.animation;
+    return {
+      color: color,
+      animation: chartAnimation,
+      animationDelayUpdate: function(idx: number) {
+        return idx * 5;
+      },
+      legend: {
+        data: this.defaultData.legend,
+        top: 16,
+        icon: "circle",
+        textStyle: {
+          fontSize: fontSize,
+          color: "#ffffff",
+          rich: legendRich
+        }
+      },
+      grid: {
+        top: 60,
+        left: 20,
+        bottom: 20,
+        right: 20,
+        containLabel: true
+      },
+      xAxis: {
+        data: this.defaultData.label,
+        show: axisStatus,
+        axisLabel: {
+          color: "#ffffff"
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#ffffff"
+          }
+        },
+        splitLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        show: axisStatus,
+        axisLabel: {
+          color: "#ffffff"
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#ffffff"
+          }
+        },
+        splitLine: {
+          show: false
+        }
+      },
+      series: this.defaultData.value.map((i: number[], k: number) => {
+        return {
+          data: i,
+          type: "line",
+          name: this.defaultData.legend[k]
+        };
+      })
+    };
+  }
+
   mounted() {
     this.lineChart = echarts.init(this.$refs["line"] as any);
   }
   setOptions(data: any) {
     this.$nextTick(() => {
-      this.lineChart.setOption({
-        color: colors[this.backgroundStyle].chart,
-        animation: this.animation,
-        animationDelayUpdate: function(idx: number) {
-          return idx * 5;
-        },
-        legend: {
-          data: data.legend,
-          top: 16,
-          textStyle: {
-            fontSize: this.fontSize,
-            color: "#ffffff",
-            rich: this.legendRich ? this.legendRich : {}
-          }
-        },
-        grid: {
-          top: 60,
-          left: 20,
-          bottom: 20,
-          right: 20,
-          containLabel: true
-        },
-        xAxis: {
-          data: data.label,
-          show: this.showAxis,
-          axisLabel: {
-            color: "#ffffff"
-          },
-          axisLine: {
-            lineStyle: {
-              color: "#ffffff"
-            }
-          },
-          splitLine: {
-            show: false
-          }
-        },
-        yAxis: {
-          show: this.showAxis,
-          axisLabel: {
-            color: "#ffffff"
-          },
-          axisLine: {
-            lineStyle: {
-              color: "#ffffff"
-            }
-          },
-          splitLine: {
-            show: false
-          }
-        },
-        series: data.value.map((i: number[], k: number) => {
-          return {
-            data: i,
-            type: "line",
-            name: data.legend[k]
-          };
-        })
-      });
+      this.lineChart.setOption(this.chartOptions);
     });
   }
   @Watch("data", { immediate: true, deep: true })
@@ -172,8 +193,12 @@ export default class LineChart extends Vue {
   box-sizing: border-box;
   padding: 6px 24px;
   overflow: hidden;
+  opacity: 1;
+  position: relative;
 }
 .line-chart {
   overflow: hidden;
+  opacity: 1;
+  position: relative;
 }
 </style>

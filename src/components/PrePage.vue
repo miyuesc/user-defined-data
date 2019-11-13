@@ -41,7 +41,7 @@ export default class PrePage extends Vue {
   height: 1080px;
   /*background: #2c1b47;*/
   /*transform: translateX(-50%) translateY(-50%);*/
-  background-image: linear-gradient(-135deg, #363256 0%, #555484 92%);
+  background-image: linear-gradient(45deg, rgba(118, 194, 215, 0.8) 10%, rgba(136, 238, 194, 0.8) 92%);
   /*background: #363256 rgba(94, 110, 220, 0.5);*/
   transition: all ease 0.2s;
   z-index: -1;
