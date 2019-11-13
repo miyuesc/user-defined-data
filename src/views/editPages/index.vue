@@ -6,7 +6,7 @@
         <img src="../../assets/logo.png" class="icon-main" alt="mydata-logo" />
       </div>
       <p class="project-name">
-        {{ `测试项目  ${new Date().toLocaleString()}` }}
+        测试项目
       </p>
       <div class="control-button-group">
         <p class="control-button preview-button">分享</p>
@@ -44,6 +44,7 @@
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>
+    <control-panel :options="checkedChartOption"></control-panel>
   </div>
 </template>
 
@@ -60,9 +61,10 @@ import PrePage from "@/components/PrePage.vue";
 import DragResize from "@/components/DragResize.vue";
 import DemoTypeMenu from "@/components/DemoTypeMenu.vue";
 import LineChart from "@/components/ChartModels/LineChart.vue";
+import ControlPanel from "@/components/ControlPanel.vue";
 
 @Component({
-  components: { LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
+  components: { ControlPanel, LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
 })
 export default class Index extends Vue {
   pageScale: number = 70;
@@ -89,6 +91,7 @@ export default class Index extends Vue {
     }
   ];
   active: string = "";
+  checkedChartOption: any = { type: "background" };
 
   amplificationPage() {
     this.pageScale += 10;
@@ -98,9 +101,13 @@ export default class Index extends Vue {
   }
   configChartOption(chart: any, index: number) {
     // this.active = chart.chartName;
+    this.checkedChartOption = chart;
+    this.checkedChartOption.type = "chart";
   }
   configDragging(chart: any, data: any) {
     this.active = chart.chartName;
+    this.checkedChartOption.divConfig = chart.divConfig = data;
+    this.checkedChartOption.type = "chart";
   }
   configResize(chart: any, data: any) {
     chart.divConfig = data;
@@ -157,7 +164,7 @@ export default class Index extends Vue {
       color: #dfdfdf;
     }
     .control-button-group {
-      width: 400px;
+      /*width: 400px;*/
       display: flex;
       flex-direction: row;
       justify-content: flex-end;

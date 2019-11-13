@@ -25,8 +25,6 @@ export default class LineChart extends Vue {
   height!: number;
   @Prop({ type: Number, default: 420 })
   width!: number;
-  @Prop({ type: Array })
-  colors!: string[];
   @Prop({ type: String, default: "lightblue" })
   backgroundStyle!: string;
   @Prop({ type: Number, default: 1 })

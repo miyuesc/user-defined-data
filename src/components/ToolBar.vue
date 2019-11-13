@@ -7,17 +7,6 @@
         </svg>
       </li>
       <li class="cut-off-line ">|</li>
-      <li @click="$emit('undo')">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#m-icon-undo1"></use>
-        </svg>
-      </li>
-      <li @click="$emit('redo')">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#m-icon-redo1"></use>
-        </svg>
-      </li>
-      <li class="cut-off-line ">|</li>
       <li @click="$emit('top')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#m-icon-zhiding3"></use>
@@ -38,13 +27,23 @@
           <use xlink:href="#m-icon-xiayi"></use>
         </svg>
       </li>
+      <li @click="$emit('undo')">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#m-icon-undo1"></use>
+        </svg>
+      </li>
+      <li @click="$emit('redo')">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#m-icon-redo1"></use>
+        </svg>
+      </li>
       <li class="cut-off-line ">|</li>
       <li @click="$emit('narrow')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#m-icon-minus-circle"></use>
         </svg>
       </li>
-      <li class="cut-off-line" style="color: #7c7d8a">{{ scale }} %</li>
+      <li class="cut-off-line" style="color: #7c7d8a; font-size: 14px">{{ scale }}%</li>
       <li @click="$emit('amplification')">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#m-icon-plus-circle"></use>
@@ -74,17 +73,22 @@ export default class ToolBar extends Vue {
 .tool-bar {
   background: #20212b;
   color: #b6b8cc;
-  width: fit-content;
-  margin: 20px auto;
-  height: 40px;
+  /*width: fit-content;*/
+  margin: 12px auto;
+  /*height: 40px;*/
   box-sizing: border-box;
   padding: 6px 12px;
   line-height: 24px;
   font-size: 18px;
   border-radius: 4px;
+  width: 400px;
   ul {
     list-style: none;
-    display: inline-flex;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
     li {
       margin: 0 8px;
       color: #802cad;
@@ -99,6 +103,7 @@ export default class ToolBar extends Vue {
     .cut-off-line {
       font-weight: lighter;
       color: #454651;
+      margin: 0;
       &:hover {
         cursor: default;
         color: #454651;
