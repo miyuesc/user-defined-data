@@ -30,9 +30,18 @@
         :minh="90"
         :parentLimitation="true"
         @dragging="configDragging(i, $event)"
+        @resizing="configResize(i, $event)"
         @activated="configChartOption(i, index)"
       >
-        <div style="height: 100%; width: 100%; background: #fc2f70"></div>
+        <line-chart
+          :width="i.divConfig.width"
+          :height="i.divConfig.height"
+          v-bind:style="{
+            width: i.divConfig.width + 'px',
+            height: i.divConfig.height + 'px',
+            backgroundColor: '#2e2e4c'
+          }"
+        ></line-chart>
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>
@@ -51,9 +60,10 @@ import ToolBar from "@/components/ToolBar.vue";
 import PrePage from "@/components/PrePage.vue";
 import DragResize from "@/components/DragResize.vue";
 import DemoTypeMenu from "@/components/DemoTypeMenu.vue";
+import LineChart from "@/components/ChartModels/LineChart.vue";
 
 @Component({
-  components: {DemoTypeMenu, DragResize, PrePage, ToolBar }
+  components: { LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
 })
 export default class Index extends Vue {
   pageScale: number = 70;
@@ -92,6 +102,9 @@ export default class Index extends Vue {
   }
   configDragging(chart: any, data: any) {
     this.active = chart.chartName;
+  }
+  configResize(chart: any, data: any) {
+    chart.divConfig = data;
   }
 }
 </script>
