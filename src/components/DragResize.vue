@@ -595,23 +595,21 @@ export default {
 
     verticalStyle() {
       // return stick => {
-      const stickStyle = {
+      return {
         width: `${this.width}px`,
         height: `${this.parentHeight}px`,
         top: `-${this.top}px`
       };
-      return stickStyle;
       // }
     },
 
     horizontalStyle() {
-      const stickStyle = {
+      return {
         height: `${this.height}px`,
         width: `${this.parentWidth}px`,
         left: `-${this.left}px`,
-        top: 0
+        top: "-1px"
       };
-      return stickStyle;
     },
 
     width() {
@@ -857,14 +855,14 @@ export default {
   top: 0;
   left: 0;
   box-sizing: border-box;
-  outline: 1px solid #419cd6;
+  outline: 2px solid #419cd6;
   z-index: 10000;
 }
 .vdr-stick {
   box-sizing: border-box;
   position: absolute;
   font-size: 1px;
-  border: 1px solid #419cd6;
+  border: 2px solid #419cd6;
   border-radius: 50%;
   background: #ffffff;
   /*box-shadow: 0 0 2px #419cd6;*/
@@ -923,6 +921,7 @@ export default {
 }
 .vertical-line {
   position: absolute;
+  left: -1px;
   border-top: none;
   border-bottom: none;
   z-index: 9999 !important;

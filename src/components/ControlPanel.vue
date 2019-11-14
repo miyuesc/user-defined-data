@@ -41,10 +41,22 @@
           <p>单位</p>
           <input style="width: 100px" />
         </div>
-        <p>曲线</p>
-        <p>坐标轴</p>
-        <p>分割线</p>
-        <p>动画</p>
+        <div>
+          <p>曲线</p>
+          <m-switch type="cool"></m-switch>
+        </div>
+        <div>
+          <p>坐标轴</p>
+          <m-switch type="cool"></m-switch>
+        </div>
+        <div>
+          <p>分割线</p>
+          <m-switch type="cool"></m-switch>
+        </div>
+        <div>
+          <p>动画</p>
+          <m-switch type="cool"></m-switch>
+        </div>
       </div>
     </div>
     <div class="control-option-item">
@@ -136,6 +148,7 @@ export default class ControlPanel extends Vue {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
   .control-position,
   .control-size {
@@ -163,6 +176,19 @@ export default class ControlPanel extends Vue {
     }
     &:disabled {
       color: #bfbfbf;
+    }
+  }
+  .chart-control {
+    div {
+      width: 100%;
+      display: inline-flex;
+    }
+    p {
+      display: block;
+      width: 80px;
+      padding: 0 8px;
+      box-sizing: content-box;
+      text-align: right;
     }
   }
 }

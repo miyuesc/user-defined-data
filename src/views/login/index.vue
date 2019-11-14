@@ -58,13 +58,9 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
-import MInput from "@/components/Input/MInput.vue";
-import MButton from "@/components/Button/MButton.vue";
-import MFormItem from "@/components/FormItem/MFormItem.vue";
-import MForm from "@/components/Form/MForm.vue";
 import { doSignIn, doSignUp } from "@/services";
 @Component({
-  components: { MForm, MFormItem, MButton, MInput }
+  // components: { MForm, MFormItem, MButton, MInput }
 })
 export default class Login extends Vue {
   signInStatus: boolean = false;

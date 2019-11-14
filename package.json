@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@miyuesc/my-ui": "0.0.2",
     "@types/echarts": "^4.4.1",
     "async-validate": "^1.0.1",
     "async-validator": "^3.2.0",
@@ -36,6 +37,8 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "prettier": "^1.18.2",
+    "sass-loader": "^8.0.0",
+    "scss-loader": "^0.0.1",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"

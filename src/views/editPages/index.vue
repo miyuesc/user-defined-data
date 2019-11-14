@@ -26,6 +26,8 @@
         :x="i.divConfig.left"
         :y="i.divConfig.top"
         :z="i.zIndex"
+        :parent-scale-x="pageScale / 100"
+        :parent-scale-y="pageScale / 100"
         :minw="160"
         :minh="90"
         :parentLimitation="true"
@@ -39,6 +41,7 @@
           unit="单位"
           :width="i.divConfig.width"
           :height="i.divConfig.height"
+          :border-radius="0"
           background-style="black"
         ></line-chart>
       </drag-resize>

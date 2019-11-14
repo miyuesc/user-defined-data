@@ -34,34 +34,23 @@
         </div>
       </template>
     </div>
-    <transition name="fade">
-      <div v-show="addProject" class="add-project-dialog">
-        <div class="dialog-header">
-          <div class="dialog-title">选择模板</div>
-        </div>
-        <div class="dialog-body">
-          <div class="template-item" v-for="(i, k) in templates" :key="k">
-            <p class="template-name">{{ i.name }}</p>
-            <div class="template-img" @click="buildNewProject(i)">
-              <img :src="i.src" :alt="i.name" />
-            </div>
+    <m-dialog title="选择模板" width="800px" :visible="addProject" @cancel="addProject = false">
+      <div class="dialog-body">
+        <div class="template-item" v-for="(i, k) in templates" :key="k">
+          <p class="template-name">{{ i.name }}</p>
+          <div class="template-img" @click="buildNewProject(i)">
+            <img :src="i.src" :alt="i.name" />
           </div>
         </div>
-        <div class="dialog-footer">
-          <m-button size="small" type="normal" @click="addProject = false">取消</m-button>
-          <m-button size="small" @click="hasCheck">确认</m-button>
-        </div>
       </div>
-    </transition>
+    </m-dialog>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component, Prop, Model, Watch } from "vue-property-decorator";
 import { Getter } from "vuex-class";
-import MButton from "@/components/Button/MButton.vue";
-@Component({
-  components: { MButton }
-})
+
+@Component({})
 export default class Home extends Vue {
   @Getter("getUserInfo")
   getUserInfo!: any;
@@ -183,9 +172,9 @@ export default class Home extends Vue {
   .body {
     width: 1200px;
     /*height: 640px;*/
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     /*transform: translateX(-50%);*/
-    margin-top: 24px;
+    margin: 24px 0 auto;
     overflow: auto;
     .empty {
       display: flex;
@@ -212,49 +201,25 @@ export default class Home extends Vue {
       }
     }
   }
-  .add-project-dialog {
-    width: 1000px;
-    height: 580px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border: none;
-    box-shadow: 0 0 42px #192530;
-    border-radius: 4px;
-    background: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .dialog-header {
-      width: 100%;
-      height: 48px;
-      color: #e3e3e3;
-      font-size: 20px;
-      line-height: 48px;
-    }
-    .dialog-body {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      .template-name {
-        font-size: 18px;
-        line-height: 42px;
-        padding-bottom: 12px;
-      }
-      img {
-        width: 100px;
-      }
-    }
-    .dialog-footer {
-      height: 66px;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      .m-button {
-        margin: 12px 24px;
-      }
-    }
+}
+/deep/ .m-dialog__header {
+  color: black;
+}
+.dialog-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 360px;
+  color: #000000;
+  .template-name {
+    font-size: 18px;
+    line-height: 42px;
+    padding-bottom: 12px;
+  }
+  img {
+    width: 100px;
   }
 }
 .fade-enter-active,
