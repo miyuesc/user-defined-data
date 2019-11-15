@@ -175,8 +175,7 @@ export default class Index extends Vue {
     chart.position = data.position;
     this.checkedChartOption = chart;
   }
-  configResizeEnd(chart: any, data: any) {
-  }
+  configResizeEnd(chart: any, data: any) {}
 }
 </script>
 

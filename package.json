@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@miyuesc/my-ui": "0.0.2",
+    "@miyuesc/my-ui": "0.0.3",
     "@types/echarts": "^4.4.1",
     "async-validate": "^1.0.1",
     "async-validator": "^3.2.0",

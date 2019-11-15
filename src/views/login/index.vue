@@ -9,14 +9,14 @@
       </div>
       <m-form :model="user" :label-width="100" :rules="formValidate">
         <m-form-item label="Username:" prop="username">
-          <m-input v-model="user.username" type="text" clearable></m-input>
+          <m-input m-style="cool" v-model="user.username" type="text" clearable></m-input>
         </m-form-item>
         <m-form-item label="Password:" prop="password">
-          <m-input v-model="user.password" type="password"></m-input>
+          <m-input m-style="cool" v-model="user.password" type="password"></m-input>
         </m-form-item>
       </m-form>
       <p class="forget">Forgot your password?</p>
-      <m-button style="margin-top: 16px" type="cool" size="small" round @click="doLogin">Sign in</m-button>
+      <m-button style="margin-top: 16px" type="cool" size="big" round @click="doLogin">Sign in</m-button>
     </div>
     <div class="sign-up-container" :class="signInStatus ? 'show2' : 'hidden1'">
       <h2 class="container-title">Sign up</h2>
@@ -27,16 +27,16 @@
       </div>
       <m-form :model="signUpForm" :label-width="100" :rules="formValidate">
         <m-form-item label="Username:" prop="username">
-          <m-input v-model="signUpForm.username" type="text" clearable></m-input>
+          <m-input m-style="cool" v-model="signUpForm.username" type="text" clearable></m-input>
         </m-form-item>
         <m-form-item label="Password:" prop="password">
-          <m-input v-model="signUpForm.password" type="password"></m-input>
+          <m-input m-style="cool" v-model="signUpForm.password" type="password"></m-input>
         </m-form-item>
         <m-form-item label="Email:" prop="email">
-          <m-input v-model="signUpForm.email" type="mail"></m-input>
+          <m-input m-style="cool" v-model="signUpForm.email" type="mail"></m-input>
         </m-form-item>
       </m-form>
-      <m-button style="margin-top: 16px" type="cool" size="small" round @click="doSign">Sign up</m-button>
+      <m-button style="margin-top: 16px" type="cool" size="big" round @click="doSign">Sign up</m-button>
     </div>
     <div class="overlay-container" :style="{ left: signInStatus ? 0 : '50%' }">
       <div class="left-overplay" :class="signInStatus ? 'show1' : 'hidden2'">

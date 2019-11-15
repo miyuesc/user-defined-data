@@ -5,66 +5,76 @@
       <p class="control-option-item-title">样式</p>
       <div class="chart-style-item checked"></div>
     </div>
-    <div class="control-option-item" v-if="selfData.divConfig">
-      <p class="control-option-item-title">位置</p>
-      <div class="control-position">
-        <p>X轴</p>
-        <input v-model="selfData.divConfig.left" @change="returnChangeOptions" />
-        <p>Y轴</p>
-        <input v-model="selfData.divConfig.top" @change="returnChangeOptions" />
-      </div>
-      <div class="control-size">
-        <p>高</p>
-        <input disabled v-model="selfData.divConfig.height" @change="returnChangeOptions" />
-        <p>宽</p>
-        <input disabled v-model="selfData.divConfig.width" @change="returnChangeOptions" />
-      </div>
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">标题</p>
-      <input type="textarea" />
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">字体</p>
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">背景</p>
-      <div class="background-control control-children">
-        <p>透明度</p>
-        <p>圆角</p>
-      </div>
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">图表</p>
-      <div class="chart-control control-children">
-        <div>
-          <p>单位</p>
-          <input style="width: 100px" />
+    <template v-if="selfData.type !== 'background'">
+      <div class="control-option-item">
+        <p class="control-option-item-title">位置</p>
+        <div class="control-position">
+          <p>X轴</p>
+          <m-input size="mini" m-style="dark" v-model="selfData.position.x" @change="returnChangeOptions" :clearable="false" />
+          <p>Y轴</p>
+          <m-input size="mini" m-style="dark" v-model="selfData.position.y" @change="returnChangeOptions" :clearable="false" />
         </div>
-        <div>
-          <p>曲线</p>
-          <m-switch type="cool"></m-switch>
-        </div>
-        <div>
-          <p>坐标轴</p>
-          <m-switch type="cool"></m-switch>
-        </div>
-        <div>
-          <p>分割线</p>
-          <m-switch type="cool"></m-switch>
-        </div>
-        <div>
-          <p>动画</p>
-          <m-switch type="cool"></m-switch>
+        <div class="control-size">
+          <p>高</p>
+          <m-input size="mini" m-style="dark" disabled v-model="selfData.size.height" @change="returnChangeOptions" />
+          <p>宽</p>
+          <m-input size="mini" m-style="dark" disabled v-model="selfData.size.width" @change="returnChangeOptions" />
         </div>
       </div>
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">自定义</p>
-    </div>
-    <div class="control-option-item">
-      <p class="control-option-item-title">数据</p>
-    </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">标题</p>
+        <m-input m-style="dark" size="small" v-model="selfData.title" />
+      </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">字体</p>
+        <m-input m-style="dark" size="mini" v-model="selfData.fontSize"></m-input>
+      </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">背景</p>
+        <div class="background-control control-children">
+          <p>透明度</p>
+          <m-input size="mini" m-style="dark"></m-input>
+          <p>圆角</p>
+          <m-input size="mini" m-style="dark"></m-input>
+        </div>
+      </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">图表</p>
+        <div class="chart-control control-children">
+          <div>
+            <p>单位</p>
+            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" />
+          </div>
+          <div>
+            <p>显示</p>
+            <m-switch m-style="cool"></m-switch>
+          </div>
+          <div>
+            <p>曲线</p>
+            <m-switch m-style="cool"></m-switch>
+          </div>
+          <div>
+            <p>坐标轴</p>
+            <m-switch m-style="cool"></m-switch>
+          </div>
+          <div>
+            <p>分割线</p>
+            <m-switch m-style="cool"></m-switch>
+          </div>
+          <div>
+            <p>动画</p>
+            <m-switch m-style="cool"></m-switch>
+          </div>
+        </div>
+      </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">自定义</p>
+        <m-input size="mini" m-style="dark"></m-input>
+      </div>
+      <div class="control-option-item">
+        <p class="control-option-item-title">数据</p>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -133,6 +143,7 @@ export default class ControlPanel extends Vue {
     align-items: flex-start;
     .control-option-item-title {
       font-size: 14px;
+      padding: 0 0 12px 0;
     }
   }
   .chart-style-item {
@@ -158,7 +169,7 @@ export default class ControlPanel extends Vue {
     padding: 6px 0;
     p {
       display: block;
-      width: 40px;
+      width: 80px;
       padding: 0 8px;
       text-align: right;
       line-height: 28px;
@@ -182,14 +193,18 @@ export default class ControlPanel extends Vue {
     div {
       width: 100%;
       display: inline-flex;
+      justify-content: flex-start;
     }
     p {
       display: block;
-      width: 80px;
-      padding: 0 8px;
+      width: 60px;
+      /*padding: 0 8px;*/
       box-sizing: content-box;
       text-align: right;
     }
   }
+}
+/deep/ .m-input__content {
+  font-size: 12px;
 }
 </style>

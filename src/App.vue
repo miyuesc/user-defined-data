@@ -17,13 +17,13 @@ body,
     background: none !important;
   }
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
     height: 4px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
-    background: #eaedf1;
+    background: #061b34;
   }
   &::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
