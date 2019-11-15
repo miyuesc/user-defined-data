@@ -82,6 +82,7 @@ export default class LineChart extends Vue {
     if (this.lineChart)
       setTimeout(() => {
         this.lineChart.resize();
+        this.setOptions();
       }, 1);
     return style;
   }
@@ -164,7 +165,7 @@ export default class LineChart extends Vue {
   mounted() {
     this.lineChart = echarts.init(this.$refs["line"] as any);
   }
-  setOptions(data: any) {
+  setOptions() {
     this.$nextTick(() => {
       this.lineChart.setOption(this.chartOptions);
     });
@@ -172,9 +173,9 @@ export default class LineChart extends Vue {
   @Watch("data", { immediate: true, deep: true })
   handleData(val: any) {
     if (val && this.lineChart) {
-      this.setOptions(val);
+      this.setOptions();
     } else {
-      this.setOptions(this.defaultData);
+      this.setOptions();
     }
   }
 }

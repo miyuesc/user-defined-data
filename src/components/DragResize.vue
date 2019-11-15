@@ -622,10 +622,14 @@ export default {
 
     rect() {
       return {
-        left: Math.round(this.left),
-        top: Math.round(this.top),
-        width: Math.round(this.width),
-        height: Math.round(this.height)
+        position: {
+          x: Math.round(this.left),
+          y: Math.round(this.top)
+        },
+        size: {
+          width: Math.round(this.width),
+          height: Math.round(this.height)
+        }
       };
     }
   },

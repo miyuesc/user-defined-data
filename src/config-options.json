@@ -1,0 +1,80 @@
+{
+  // 共有属性
+  "type": "",
+  "title": "",
+  "size": {
+    "width": 120,
+    "height": 80
+  },
+  "position": {
+    "x": 0,
+    "y": 0
+  },
+  "zIndex": 10,
+  "fontSize": 12,
+  "background": {
+    "opacity": 1,
+    "borderRadius": 8
+  },
+  "style": {
+    "id": "",
+    "name": ""
+  },
+  // 图表属性
+  "chartOptions": {
+    "type": "line",
+    "unit": "",
+    "axis": true,
+    "split": false,
+    "animation": true,
+    "smooth": false,
+    "userDefined": {}
+  },
+  // 表格属性
+  "tableOptions": {
+    "border": false,
+    "stripe": true,
+    "hoverStyle": {
+      "show": true,
+      "color": "#eeeeee",
+      "cursor": "pointer"
+    },
+    "headerFixed": true,
+    "autoScroll": false
+  },
+  // 强调数字属性
+  "numberOptions": {},
+  // 图片轮播属性
+  "imageOptions": {
+    "button": {
+      "show": false,
+      "background": true,
+      "position": "inside"
+    },
+    "preview": true,
+    "director": {
+      "show": false,
+      "position": "inside"
+    },
+    "auto": true
+  },
+  // 文本
+  "textOptions": {
+    "fontFamily": "",
+    "align": "left"
+  },
+  //
+  "dataOptions": {
+    "reset": true,
+    "url": "",
+    "data": {
+      "label": [],
+      "value": [
+        {
+          "name": "",
+          "data": []
+        }
+      ]
+    }
+  }
+}

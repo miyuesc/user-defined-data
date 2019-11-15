@@ -20,11 +20,11 @@
       <drag-resize
         v-for="(i, index) in charts"
         :key="index"
-        :isActive="active === i.chartName"
-        :w="i.divConfig.width"
-        :h="i.divConfig.height"
-        :x="i.divConfig.left"
-        :y="i.divConfig.top"
+        :isActive="active === i.title"
+        :w="i.size.width"
+        :h="i.size.height"
+        :x="i.position.x"
+        :y="i.position.y"
         :z="i.zIndex"
         :parent-scale-x="pageScale / 100"
         :parent-scale-y="pageScale / 100"
@@ -33,17 +33,32 @@
         :parentLimitation="true"
         @dragging="configDragging(i, $event)"
         @resizing="configResize(i, $event)"
+        @resizestop="configResizeEnd(i, $event)"
         @activated="configChartOption(i, index)"
       >
-        <line-chart
-          :background-opacity="0.5"
-          title="请输入标题"
-          unit="单位"
-          :width="i.divConfig.width"
-          :height="i.divConfig.height"
-          :border-radius="0"
-          background-style="black"
-        ></line-chart>
+        <template v-if="i.chartOptions.type === 'line'">
+          <line-chart
+            v-model="i.chartEntity"
+            :background-opacity="0.5"
+            :title="i.title"
+            :unit="i.unit"
+            :width="i.size.width"
+            :height="i.size.height"
+            :border-radius="0"
+            background-style="black"
+          ></line-chart>
+        </template>
+        <template v-if="i.chartOptions.type === 'bar'">
+          <bar-chart
+            v-model="i.chartEntity"
+            :title="i.title"
+            :chart-size="i.size"
+            :chart-options="i.chartOptions"
+            :chart-style="i.style"
+            :background="i.background"
+            :font-size="i.fontSize"
+          ></bar-chart>
+        </template>
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>
@@ -65,32 +80,75 @@ import DragResize from "@/components/DragResize.vue";
 import DemoTypeMenu from "@/components/DemoTypeMenu.vue";
 import LineChart from "@/components/ChartModels/LineChart.vue";
 import ControlPanel from "@/components/ControlPanel.vue";
+import BarChart from "@/components/ChartModels/BarChart.vue";
 
 @Component({
-  components: { ControlPanel, LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
+  components: { BarChart, ControlPanel, LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
 })
 export default class Index extends Vue {
   pageScale: number = 70;
   charts: any[] = [
     {
-      chartName: "div1",
-      divConfig: {
-        width: 200,
-        height: 120,
-        left: 200,
-        top: 111
+      type: "chart",
+      title: "线性图",
+      size: {
+        width: 400,
+        height: 320
       },
-      zIndex: 10
+      position: {
+        x: 200,
+        y: 111
+      },
+      zIndex: 10,
+      fontSize: 12,
+      background: {
+        opacity: 0.8,
+        borderRadius: 8
+      },
+      style: {
+        id: "test-line-style-1",
+        name: "black"
+      },
+      chartOptions: {
+        type: "line",
+        unit: "Pa",
+        axis: true,
+        split: false,
+        animation: true,
+        smooth: false,
+        userDefined: {}
+      }
     },
     {
-      chartName: "div2",
-      divConfig: {
-        width: 530,
-        height: 420,
-        left: 590,
-        top: 251
+      type: "chart",
+      title: "柱状图",
+      size: {
+        width: 520,
+        height: 380
       },
-      zIndex: 11
+      position: {
+        x: 900,
+        y: 400
+      },
+      zIndex: 11,
+      fontSize: 12,
+      background: {
+        opacity: 0.8,
+        borderRadius: 8
+      },
+      style: {
+        id: "test-bar-style-1",
+        name: "black"
+      },
+      chartOptions: {
+        type: "bar",
+        unit: "万元",
+        axis: true,
+        split: false,
+        animation: true,
+        smooth: false,
+        userDefined: {}
+      }
     }
   ];
   active: string = "";
@@ -103,17 +161,21 @@ export default class Index extends Vue {
     this.pageScale -= 10;
   }
   configChartOption(chart: any, index: number) {
-    // this.active = chart.chartName;
     this.checkedChartOption = chart;
-    this.checkedChartOption.type = "chart";
+    this.active = chart.title;
   }
   configDragging(chart: any, data: any) {
-    this.active = chart.chartName;
-    this.checkedChartOption.divConfig = chart.divConfig = data;
-    this.checkedChartOption.type = "chart";
+    this.active = chart.title;
+    chart.size = data.size;
+    chart.position = data.position;
+    this.checkedChartOption = chart;
   }
   configResize(chart: any, data: any) {
-    chart.divConfig = data;
+    chart.size = data.size;
+    chart.position = data.position;
+    this.checkedChartOption = chart;
+  }
+  configResizeEnd(chart: any, data: any) {
   }
 }
 </script>

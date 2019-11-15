@@ -16,6 +16,20 @@ body,
   &::selection {
     background: none !important;
   }
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+    background: #eaedf1;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0);
+  }
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
