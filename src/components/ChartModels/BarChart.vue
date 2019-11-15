@@ -79,23 +79,23 @@ export default class BarChart extends Vue {
     return style;
   }
   get chartOption() {
+    let fontSize = this.fontSize;
     return {
       legend: {
         data: ["FT101", "FT102", "总和"],
-        left: "center",
-        align: "left",
-        top: "2%",
+        top: 16,
+        icon: "circle",
         textStyle: {
-          color: "#fff"
-        },
-        itemWidth: 10,
-        itemHeight: 10,
-        itemGap: 35
+          fontSize: fontSize,
+          color: "#ffffff"
+          // rich: legendRich
+        }
       },
       grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
+        top: 60,
+        left: 20,
+        bottom: 20,
+        right: 20,
         containLabel: true
       },
       xAxis: [
@@ -124,10 +124,6 @@ export default class BarChart extends Vue {
       yAxis: [
         {
           type: "value",
-          name: "万m³",
-          axisLabel: {
-            formatter: "{value} m³"
-          },
           axisTick: {
             show: false
           },

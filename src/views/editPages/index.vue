@@ -112,6 +112,7 @@ export default class Index extends Vue {
       chartOptions: {
         type: "line",
         unit: "Pa",
+        showUnit: true,
         axis: true,
         split: false,
         animation: true,
@@ -143,6 +144,7 @@ export default class Index extends Vue {
       chartOptions: {
         type: "bar",
         unit: "万元",
+        showUnit: true,
         axis: true,
         split: false,
         animation: true,

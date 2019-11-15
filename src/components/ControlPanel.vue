@@ -194,6 +194,8 @@ export default class ControlPanel extends Vue {
       width: 100%;
       display: inline-flex;
       justify-content: flex-start;
+      height: 40px;
+      align-items: center;
     }
     p {
       display: block;
