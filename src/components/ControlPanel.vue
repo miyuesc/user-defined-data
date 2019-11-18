@@ -43,7 +43,7 @@
         <div class="chart-control control-children">
           <div>
             <p>单位</p>
-            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" />
+            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" @change="returnChangeOptions"/>
           </div>
           <div>
             <p>显示</p>
@@ -208,5 +208,8 @@ export default class ControlPanel extends Vue {
 }
 /deep/ .m-input__content {
   font-size: 12px;
+}
+.switch {
+  transform: scale(0.8);
 }
 </style>

@@ -82,7 +82,7 @@ export default class LineChart extends Vue {
     if (this.lineChart)
       setTimeout(() => {
         this.lineChart.resize();
-        this.setOptions();
+        // this.setOptions();
       }, 1);
     return style;
   }

@@ -15,7 +15,7 @@
  * @Date: -
  **/
 
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { ChartOptions } from "@/interface/chartOptions";
 import echarts from "echarts";
 import { colors } from "@/utils/background";
@@ -64,12 +64,6 @@ export default class BarChart extends Vue {
     } else {
       style.background = colors[this.chartStyle.name].background;
     }
-
-    if (this.barChart)
-      setTimeout(() => {
-        this.barChart.resize();
-        this.setOptions();
-      }, 1);
     return style;
   }
   get chartStyles() {
@@ -222,6 +216,18 @@ export default class BarChart extends Vue {
     this.$nextTick(() => {
       this.barChart.setOption(this.chartOption);
     });
+  }
+  @Watch("chartOption", { immediate: true, deep: true })
+  handleChange() {
+    this.setOptions();
+  }
+  @Watch("chartSize", { immediate: true, deep: true })
+  handleChangeSize() {
+    if (this.barChart)
+      setTimeout(() => {
+        this.barChart.resize();
+        // this.setOptions();
+      }, 1);
   }
 }
 </script>
