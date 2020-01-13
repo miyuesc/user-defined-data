@@ -8,11 +8,11 @@
         <i class="ri-qq-fill"></i>
       </div>
       <m-form :model="user" :label-width="100" :rules="formValidate">
-        <m-form-item label="Username:" prop="username">
-          <m-input m-style="cool" v-model="user.username" type="text" clearable></m-input>
+        <m-form-item label="账号:" prop="username">
+          <m-input size="small" m-style="cool" v-model="user.username" type="text" clearable></m-input>
         </m-form-item>
-        <m-form-item label="Password:" prop="password">
-          <m-input m-style="cool" v-model="user.password" type="password"></m-input>
+        <m-form-item label="密码:" prop="password">
+          <m-input size="small" m-style="cool" v-model="user.password" type="password"></m-input>
         </m-form-item>
       </m-form>
       <p class="forget">Forgot your password?</p>
@@ -26,14 +26,14 @@
         <i class="ri-qq-fill"></i>
       </div>
       <m-form :model="signUpForm" :label-width="100" :rules="formValidate">
-        <m-form-item label="Username:" prop="username">
-          <m-input m-style="cool" v-model="signUpForm.username" type="text" clearable></m-input>
+        <m-form-item label="账号:" prop="username">
+          <m-input size="small" m-style="cool" v-model="signUpForm.username" type="text" clearable></m-input>
         </m-form-item>
-        <m-form-item label="Password:" prop="password">
-          <m-input m-style="cool" v-model="signUpForm.password" type="password"></m-input>
+        <m-form-item label="密码:" prop="password">
+          <m-input size="small" m-style="cool" v-model="signUpForm.password" type="password"></m-input>
         </m-form-item>
-        <m-form-item label="Email:" prop="email">
-          <m-input m-style="cool" v-model="signUpForm.email" type="mail"></m-input>
+        <m-form-item label="邮箱:" prop="email">
+          <m-input size="small" m-style="cool" v-model="signUpForm.email" type="mail"></m-input>
         </m-form-item>
       </m-form>
       <m-button style="margin-top: 16px" type="cool" size="big" round @click="doSign">Sign up</m-button>
@@ -73,15 +73,25 @@ export default class Login extends Vue {
     username: [
       {
         required: true,
-        message: "The username cannot be empty",
+        message: "账号不能为空",
         trigger: "blur"
+      },
+      {
+        required: true,
+        message: "账号不能为空",
+        trigger: "change"
       }
     ],
     password: [
       {
         required: true,
-        message: "The password cannot be empty",
+        message: "密码不能为空",
         trigger: "blur"
+      },
+      {
+        required: true,
+        message: "密码不能为空",
+        trigger: "change"
       }
     ]
   };
