@@ -159,18 +159,6 @@ export default class Login extends Vue {
       }
     }
   }
-  /deep/ .m-form-item-label {
-    font-family: pingfangSS, "Avenir", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-  }
-  /deep/ .m-form-item {
-    height: 48px;
-    margin-top: 26px;
-  }
-  /deep/ input {
-    color: #000000 !important;
-  }
   .sign-in-container {
     left: 0;
     .forget {
@@ -297,5 +285,12 @@ export default class Login extends Vue {
     z-index: -1;
     display: none;
   }
+}
+/deep/ .m-form-item {
+  display: flex;
+  align-items: center;
+}
+/deep/ .m-form-item-content {
+  margin-left: 0 !important;
 }
 </style>

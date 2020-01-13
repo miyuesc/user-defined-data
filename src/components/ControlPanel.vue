@@ -43,27 +43,27 @@
         <div class="chart-control control-children">
           <div>
             <p>单位</p>
-            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" @change="returnChangeOptions"/>
+            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" @change="returnChangeOptions" />
           </div>
           <div>
             <p>显示</p>
-            <m-switch m-style="cool"></m-switch>
+            <m-switch v-model="selfData.chartOptions.showUnit" @change="returnChangeOptions"></m-switch>
           </div>
           <div>
             <p>曲线</p>
-            <m-switch m-style="cool"></m-switch>
+            <m-switch v-model="selfData.chartOptions.smooth" @change="returnChangeOptions"></m-switch>
           </div>
           <div>
             <p>坐标轴</p>
-            <m-switch m-style="cool"></m-switch>
+            <m-switch v-model="selfData.chartOptions.axis" @change="returnChangeOptions"></m-switch>
           </div>
           <div>
             <p>分割线</p>
-            <m-switch m-style="cool"></m-switch>
+            <m-switch v-model="selfData.chartOptions.split" @change="returnChangeOptions"></m-switch>
           </div>
           <div>
             <p>动画</p>
-            <m-switch m-style="cool"></m-switch>
+            <m-switch v-model="selfData.chartOptions.animation" @change="returnChangeOptions"></m-switch>
           </div>
         </div>
       </div>
@@ -85,11 +85,13 @@
  * @Date: -
  **/
 
-import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch, Model } from "vue-property-decorator";
 
 @Component({})
 export default class ControlPanel extends Vue {
-  @Prop({ type: Object })
+  // @Prop({ type: Object })
+  // options!: any;
+  @Model("input")
   options!: any;
 
   selfData: any = this.options;

@@ -2,7 +2,7 @@
   <div :style="styles">
     <div class="header">
       <p class="chart-title" :style="{ fontSize: `${fontSize + 6}px` }">{{ title }}</p>
-      <p class="chart-unit" v-show="showUnit">单位：{{ unit }}</p>
+      <p class="chart-unit" v-show="chartOptions.showUnit">单位：{{ chartOptions.unit }}</p>
     </div>
     <div class="line-chart" ref="line" :style="chartStyles"></div>
   </div>
@@ -16,41 +16,39 @@
  **/
 
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { ChartOptions } from "@/interface/chartOptions";
 import echarts from "echarts";
 import { colors } from "@/utils/background";
 
 @Component({})
 export default class LineChart extends Vue {
-  @Prop({ type: Number, default: 280 })
-  height!: number;
-  @Prop({ type: Number, default: 420 })
-  width!: number;
-  @Prop({ type: String, default: "lightblue" })
-  backgroundStyle!: string;
-  @Prop({ type: Number, default: 1 })
-  backgroundOpacity!: number;
-  @Prop({ type: Number, default: 8 })
-  borderRadius!: number;
-  @Prop({ type: Number, default: 12 })
-  fontSize!: number;
   @Prop({ type: String })
   title!: string;
-  @Prop({ type: String })
-  unit!: string;
-  @Prop({ type: Boolean, default: false })
-  smooth!: boolean;
-  @Prop({ type: Boolean, default: false })
-  showLine!: boolean;
-  @Prop({ type: Boolean, default: true })
-  showAxis!: boolean;
-  @Prop({ type: Boolean, default: true })
-  showUnit!: boolean;
-  @Prop({ type: Boolean, default: true })
-  animation!: boolean;
   @Prop({ type: Object })
-  data!: any;
-  @Prop({ type: String })
-  url!: string;
+  chartSize!: { width: number; height: number };
+  @Prop({
+    type: Object,
+    default: () => {
+      return { type: "bar", showUnit: true };
+    }
+  })
+  chartOptions!: ChartOptions;
+  @Prop({
+    type: Object,
+    default: () => {
+      return { id: "jaskjdhajsgd", name: "lightblue" };
+    }
+  })
+  chartStyle!: { id: string; name: string };
+  @Prop({
+    type: Object,
+    default: () => {
+      return { opacity: 1, borderRadius: 8 };
+    }
+  })
+  background!: { opacity: number; borderRadius: number };
+  @Prop({ type: Number, default: 12 })
+  fontSize!: number;
 
   @Prop({ type: Object })
   legendRich!: any;
@@ -68,15 +66,15 @@ export default class LineChart extends Vue {
 
   get styles() {
     let style: any = {};
-    style.width = `${this.width}px`;
-    style.height = `${this.height}px`;
-    style.borderRadius = `${this.borderRadius}px`;
-    if (this.backgroundOpacity !== 1) {
-      let opacity: string[] = colors[this.backgroundStyle].background.split(",");
-      opacity[3] = `${this.backgroundOpacity})`;
+    style.width = `${this.chartSize.width}px`;
+    style.height = `${this.chartSize.height}px`;
+    style.borderRadius = `${this.background.borderRadius}px`;
+    if (this.background.opacity !== 1) {
+      let opacity: string[] = colors[this.chartStyle.name].background.split(",");
+      opacity[3] = `${this.background.opacity})`;
       style.background = opacity.join(",");
     } else {
-      style.background = colors[this.backgroundStyle].background;
+      style.background = colors[this.chartStyle.name].background;
     }
 
     if (this.lineChart)
@@ -89,20 +87,16 @@ export default class LineChart extends Vue {
 
   get chartStyles() {
     let style: any = {};
-    style.width = `${this.width}px`;
-    style.height = `${this.height - 40}px`;
+    style.width = `${this.chartSize.width}px`;
+    style.height = `${this.chartSize.height - 40}px`;
     return style;
   }
 
-  get chartOptions() {
-    let color: string[] = colors[this.backgroundStyle].chart;
-    let legendRich: any = this.legendRich ? this.legendRich : {};
+  get chartOption() {
     let fontSize: number = this.fontSize;
-    let axisStatus: boolean = this.showAxis;
-    let chartAnimation: boolean = this.animation;
     return {
-      color: color,
-      animation: chartAnimation,
+      color: colors[this.chartStyle.name].chart,
+      animation: this.chartOptions.animation || false,
       animationDelayUpdate: function(idx: number) {
         return idx * 5;
       },
@@ -112,8 +106,7 @@ export default class LineChart extends Vue {
         icon: "circle",
         textStyle: {
           fontSize: fontSize,
-          color: "#ffffff",
-          rich: legendRich
+          color: "#ffffff"
         }
       },
       grid: {
@@ -125,7 +118,7 @@ export default class LineChart extends Vue {
       },
       xAxis: {
         data: this.defaultData.label,
-        show: axisStatus,
+        show: this.chartOptions.axis || false,
         axisLabel: {
           color: "#ffffff"
         },
@@ -139,7 +132,7 @@ export default class LineChart extends Vue {
         }
       },
       yAxis: {
-        show: axisStatus,
+        show: this.chartOptions.axis || false,
         axisLabel: {
           color: "#ffffff"
         },
@@ -167,7 +160,7 @@ export default class LineChart extends Vue {
   }
   setOptions() {
     this.$nextTick(() => {
-      this.lineChart.setOption(this.chartOptions);
+      this.lineChart.setOption(this.chartOption);
     });
   }
   @Watch("data", { immediate: true, deep: true })

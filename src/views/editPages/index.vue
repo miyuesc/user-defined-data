@@ -39,13 +39,12 @@
         <template v-if="i.chartOptions.type === 'line'">
           <line-chart
             v-model="i.chartEntity"
-            :background-opacity="0.5"
             :title="i.title"
-            :unit="i.unit"
-            :width="i.size.width"
-            :height="i.size.height"
-            :border-radius="0"
-            background-style="black"
+            :chart-size="i.size"
+            :chart-options="i.chartOptions"
+            :chart-style="i.style"
+            :background="i.background"
+            :font-size="i.fontSize"
           ></line-chart>
         </template>
         <template v-if="i.chartOptions.type === 'bar'">
@@ -62,7 +61,7 @@
       </drag-resize>
     </pre-page>
     <demo-type-menu></demo-type-menu>
-    <control-panel :options="checkedChartOption"></control-panel>
+    <control-panel v-model="checkedChartOption" @change="changeChartStyle"></control-panel>
   </div>
 </template>
 
@@ -154,6 +153,7 @@ export default class Index extends Vue {
     }
   ];
   active: string = "";
+  activeChart: number = -1;
   checkedChartOption: any = { type: "background" };
 
   amplificationPage() {
@@ -165,6 +165,7 @@ export default class Index extends Vue {
   configChartOption(chart: any, index: number) {
     this.checkedChartOption = chart;
     this.active = chart.title;
+    this.activeChart = index;
   }
   configDragging(chart: any, data: any) {
     this.active = chart.title;
@@ -178,6 +179,9 @@ export default class Index extends Vue {
     this.checkedChartOption = chart;
   }
   configResizeEnd(chart: any, data: any) {}
+  changeChartStyle(option: any) {
+    this.charts[this.activeChart] = option;
+  }
 }
 </script>
 

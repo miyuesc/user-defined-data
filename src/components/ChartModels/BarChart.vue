@@ -64,6 +64,12 @@ export default class BarChart extends Vue {
     } else {
       style.background = colors[this.chartStyle.name].background;
     }
+
+    if (this.barChart)
+      setTimeout(() => {
+        this.barChart.resize();
+        // this.setOptions();
+      }, 1);
     return style;
   }
   get chartStyles() {
