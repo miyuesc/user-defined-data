@@ -16,7 +16,7 @@
       </div>
     </div>
     <tool-bar :scale="pageScale" @amplification="amplificationPage" @narrow="narrowPage"></tool-bar>
-    <pre-page :scale="pageScale / 100" @click="active = 'prePage'">
+    <pre-page :scale="pageScale / 100" @click="changeBackground">
       <drag-resize
         v-for="(i, index) in charts"
         :key="index"
@@ -181,6 +181,11 @@ export default class Index extends Vue {
   configResizeEnd(chart: any, data: any) {}
   changeChartStyle(option: any) {
     this.charts[this.activeChart] = option;
+  }
+  changeBackground() {
+    this.active = "prePage";
+    this.activeChart = -1;
+    this.checkedChartOption = { type: "background" };
   }
 }
 </script>

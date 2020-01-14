@@ -710,10 +710,10 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@miyuesc/my-ui@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@miyuesc/my-ui/-/my-ui-0.0.3.tgz#9ad73f365fdaf50e3564a582b796dfa170c37f8f"
-  integrity sha512-7cHLJaen5GEGj0wVadHCQlcGWrk9TFtDyO3BGESD0nyqWkpRvu8pmih4ldQ2I+Bd2CB2yfVC+USN2wQ9GMG7pA==
+"@miyuesc/my-ui@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@miyuesc/my-ui/-/my-ui-0.0.6.tgz#9ec5ce1b309a50509930948d0d3b9899ec9dcdb9"
+  integrity sha512-X+2u445sDrd+Envh4aH/wNw5GP38oX6GJ7lg0FKQqoIzZfLI6I9mKSBwzKgf/JJdozDVwmA2MODjGMglrnseqA==
   dependencies:
     async-validator "^3.2.1"
     core-js "^3.3.2"

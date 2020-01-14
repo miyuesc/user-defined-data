@@ -6,7 +6,7 @@
         <p>单位</p>
         <m-switch v-model="optionSelf.showUnit" @change="returnOptions"></m-switch>
         <transition name="move">
-          <m-input v-show="optionSelf.showUnit" m-style="dark" size="mini" v-model="optionSelf.unit" @change="returnOptions" />
+          <m-input v-show="optionSelf.showUnit" m-style="dark" :clearable="false" size="mini" v-model="optionSelf.unit" @change="returnOptions" />
         </transition>
       </div>
       <div class="control-children-item" v-if="optionSelf.type === 'line'">
@@ -36,7 +36,7 @@
  * @Date: -
  **/
 
-import { Vue, Component, Model } from "vue-property-decorator";
+import { Vue, Component, Model, Watch } from "vue-property-decorator";
 import { ChartOptions } from "@/interface/chartOptions";
 
 @Component({})
@@ -45,6 +45,11 @@ export default class ChartOptionConfig extends Vue {
   chartOptions!: ChartOptions;
 
   optionSelf: ChartOptions = this.chartOptions;
+
+  @Watch("chartOptions", { immediate: true, deep: true })
+  changeChart(val: ChartOptions) {
+    this.optionSelf = val;
+  }
 
   returnOptions() {
     this.$emit("input", this.optionSelf);
