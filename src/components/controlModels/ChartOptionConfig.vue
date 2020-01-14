@@ -13,6 +13,10 @@
         <p>曲线</p>
         <m-switch v-model="optionSelf.smooth" @change="returnOptions"></m-switch>
       </div>
+      <div class="control-children-item" v-if="optionSelf.type === 'bar'">
+        <p>堆叠</p>
+        <m-switch v-model="optionSelf.stacked" @change="returnOptions"></m-switch>
+      </div>
       <div class="control-children-item">
         <p>坐标轴</p>
         <m-switch v-model="optionSelf.axis" @change="returnOptions"></m-switch>

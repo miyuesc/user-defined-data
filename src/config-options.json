@@ -28,6 +28,7 @@
     "split": false,
     "animation": true,
     "smooth": false,
+    "stacked": false,
     "userDefined": {}
   },
   // 表格属性

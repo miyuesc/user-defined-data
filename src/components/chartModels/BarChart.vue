@@ -51,6 +51,11 @@ export default class BarChart extends Vue {
   fontSize!: number;
 
   barChart: any = null;
+  defaultData: any = {
+    legend: ["选项一", "选项二"],
+    label: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    value: [[7, 10, 6, 3, 15, 8, 6], [12, 17, 9, 5, 11, 9, 10]]
+  };
 
   get styles() {
     let style: any = {};
@@ -80,9 +85,16 @@ export default class BarChart extends Vue {
   }
   get chartOption() {
     let fontSize = this.fontSize;
+    let showAxis: boolean = this.chartOptions.axis || false;
+    let showSplit: boolean = this.chartOptions.split || false;
+    let animation: boolean = this.chartOptions.animation || false;
+    let stacked: boolean = this.chartOptions.stacked || false;
+    let color: any = colors[this.chartStyle.name].chart;
     return {
+      color: color,
+      animation: animation,
       legend: {
-        data: ["FT101", "FT102", "总和"],
+        data: this.defaultData.legend,
         top: 16,
         icon: "circle",
         textStyle: {
@@ -101,118 +113,61 @@ export default class BarChart extends Vue {
       xAxis: [
         {
           type: "category",
-          data: ["2019 6-10", "2019 6-11", "2019 6-12", "2019 6-13", "2019 6-14", "2019 6-15"],
+          data: this.defaultData.label,
           axisLine: {
-            show: true,
+            show: showSplit ? false : showAxis,
             lineStyle: {
-              color: "#00c7ff",
-              width: 1,
-              type: "solid"
+              color: ["rgba(227,202,255,0.6)"]
             }
           },
           axisTick: {
-            show: true
+            show: showAxis || false
           },
           axisLabel: {
-            show: true,
+            show: showSplit ? true : showAxis,
             textStyle: {
-              color: "#00c7ff"
-            }
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: "value",
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: "#00c7ff",
-              width: 1,
-              type: "solid"
+              color: "#bfbfbf"
             }
           },
           splitLine: {
-            lineStyle: {
-              color: "#0F55B9"
-            }
+            show: false
           }
         }
       ],
-      series: [
-        {
-          name: "FT101",
-          type: "bar",
-          data: [220, 120, 240, 266, 210, 246],
-          barWidth: 16, //柱子宽度
-          barGap: 1, //柱子之间间距
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: "#00C7E1"
-                },
-                {
-                  offset: 1,
-                  color: "#005193"
-                }
-              ]),
-              opacity: 1,
-              barBorderRadius: 12
-            }
+      yAxis: {
+        type: "value",
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: showAxis || false,
+          lineStyle: {
+            color: ["rgba(227,202,255,0.6)"]
           }
         },
-        {
-          name: "FT102",
-          type: "bar",
-          data: [130, 150, 220, 245, 136, 256],
-          barWidth: 16,
-          barGap: 1,
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: "#00da9c"
-                },
-                {
-                  offset: 1,
-                  color: "#007a55"
-                }
-              ]),
-              opacity: 1,
-              barBorderRadius: 12
-            }
+        splitLine: {
+          show: showSplit,
+          lineStyle: {
+            color: ["rgba(227,202,255,0.6)"],
+            type: "dashed"
           }
         },
-        {
-          name: "总和",
-          type: "bar",
-          data: [350, 270, 460, 511, 346, 502, 50],
-          barWidth: 16,
-          barGap: 1,
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: "#7CB8F8"
-                },
-                {
-                  offset: 1,
-                  color: "#051B8F"
-                }
-              ]),
-              opacity: 1,
-              barBorderRadius: 12
-            }
+        axisLabel: {
+          show: showSplit ? true : showAxis,
+          textStyle: {
+            color: "#bfbfbf"
           }
         }
-      ]
+      },
+      series: this.defaultData.value.map((i: number[], k: number) => {
+        return {
+          data: i,
+          type: "bar",
+          name: this.defaultData.legend[k],
+          barWidth: 16, //柱子宽度
+          barGap: stacked ? `-${100 * k}%` : "0%"
+        };
+      })
     };
   }
   mounted() {

@@ -6,5 +6,6 @@ export interface ChartOptions {
   split?: boolean;
   animation?: boolean;
   smooth?: boolean;
+  stacked?: boolean;
   userDefined?: any;
 }

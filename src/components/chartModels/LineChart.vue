@@ -120,8 +120,8 @@ export default class LineChart extends Vue {
       },
       xAxis: {
         data: this.defaultData.label,
-        show: showAxis,
         axisLabel: {
+          show: showSplit ? true : showAxis,
           color: "#bfbfbf"
         },
         axisLine: {
@@ -130,16 +130,23 @@ export default class LineChart extends Vue {
             color: ["rgba(227,202,255,0.6)"]
           }
         },
+        axisTick: {
+          show: showAxis || false
+        },
         splitLine: {
           show: false
         }
       },
       yAxis: {
-        show: showAxis,
         axisLabel: {
+          show: showSplit ? true : showAxis,
           color: "#bfbfbf"
         },
+        axisTick: {
+          show: false
+        },
         axisLine: {
+          show: showAxis || false,
           lineStyle: {
             color: ["rgba(227,202,255,0.6)"]
           }
