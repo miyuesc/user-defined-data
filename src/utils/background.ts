@@ -20,7 +20,7 @@ export const colors: any = {
     chart: ["#a6294b", "#d03a63", "#ffe2c5", "#ffba75"]
   },
   black: {
-    background: "rgba(25,24,18, 1)",
+    background: "rgb(34, 46, 57, 1)",
     chart: ["#a80e5b", "#8b3687", "#c195b8", "#e3c3f5"]
   }
 };

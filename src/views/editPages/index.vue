@@ -77,9 +77,9 @@ import ToolBar from "@/components/ToolBar.vue";
 import PrePage from "@/components/PrePage.vue";
 import DragResize from "@/components/DragResize.vue";
 import DemoTypeMenu from "@/components/DemoTypeMenu.vue";
-import LineChart from "@/components/ChartModels/LineChart.vue";
+import LineChart from "@/components/chartModels/LineChart.vue";
 import ControlPanel from "@/components/ControlPanel.vue";
-import BarChart from "@/components/ChartModels/BarChart.vue";
+import BarChart from "@/components/chartModels/BarChart.vue";
 
 @Component({
   components: { BarChart, ControlPanel, LineChart, DemoTypeMenu, DragResize, PrePage, ToolBar }
@@ -101,7 +101,7 @@ export default class Index extends Vue {
       zIndex: 10,
       fontSize: 12,
       background: {
-        opacity: 0.8,
+        opacity: 1,
         borderRadius: 8
       },
       style: {

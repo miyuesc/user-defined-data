@@ -94,12 +94,14 @@ export default class LineChart extends Vue {
 
   get chartOption() {
     let fontSize: number = this.fontSize;
+    let smooth: boolean = this.chartOptions.smooth || false;
+    let showAxis: boolean = this.chartOptions.axis || false;
+    let showSplit: boolean = this.chartOptions.split || false;
+    let animation: boolean = this.chartOptions.animation || false;
+    let color: any = colors[this.chartStyle.name].chart;
     return {
-      color: colors[this.chartStyle.name].chart,
-      animation: this.chartOptions.animation || false,
-      animationDelayUpdate: function(idx: number) {
-        return idx * 5;
-      },
+      color: color,
+      animation: animation,
       legend: {
         data: this.defaultData.legend,
         top: 16,
@@ -111,20 +113,21 @@ export default class LineChart extends Vue {
       },
       grid: {
         top: 60,
-        left: 20,
-        bottom: 20,
-        right: 20,
+        left: 40,
+        bottom: 24,
+        right: 40,
         containLabel: true
       },
       xAxis: {
         data: this.defaultData.label,
-        show: this.chartOptions.axis || false,
+        show: showAxis,
         axisLabel: {
-          color: "#ffffff"
+          color: "#bfbfbf"
         },
         axisLine: {
+          show: showSplit ? false : showAxis,
           lineStyle: {
-            color: "#ffffff"
+            color: ["rgba(227,202,255,0.6)"]
           }
         },
         splitLine: {
@@ -132,23 +135,28 @@ export default class LineChart extends Vue {
         }
       },
       yAxis: {
-        show: this.chartOptions.axis || false,
+        show: showAxis,
         axisLabel: {
-          color: "#ffffff"
+          color: "#bfbfbf"
         },
         axisLine: {
           lineStyle: {
-            color: "#ffffff"
+            color: ["rgba(227,202,255,0.6)"]
           }
         },
         splitLine: {
-          show: false
+          show: showSplit,
+          lineStyle: {
+            color: ["rgba(227,202,255,0.6)"],
+            type: "dashed"
+          }
         }
       },
       series: this.defaultData.value.map((i: number[], k: number) => {
         return {
           data: i,
           type: "line",
+          smooth: smooth,
           name: this.defaultData.legend[k]
         };
       })
@@ -163,9 +171,10 @@ export default class LineChart extends Vue {
       this.lineChart.setOption(this.chartOption);
     });
   }
-  @Watch("data", { immediate: true, deep: true })
+  @Watch("chartOption", { immediate: true, deep: true })
   handleData(val: any) {
     if (val && this.lineChart) {
+      this.lineChart.clear();
       this.setOptions();
     } else {
       this.setOptions();
@@ -183,10 +192,13 @@ export default class LineChart extends Vue {
   display: inline-flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 6px 24px;
+  padding: 10px 40px 6px;
   overflow: hidden;
   opacity: 1;
   position: relative;
+  p {
+    line-height: 24px;
+  }
 }
 .line-chart {
   overflow: hidden;

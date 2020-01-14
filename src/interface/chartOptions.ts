@@ -1,5 +1,5 @@
 export interface ChartOptions {
-  type: number;
+  type: string;
   unit?: string;
   showUnit?: boolean;
   axis?: boolean;

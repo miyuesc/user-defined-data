@@ -38,35 +38,7 @@
           <m-input size="mini" m-style="dark"></m-input>
         </div>
       </div>
-      <div class="control-option-item">
-        <p class="control-option-item-title">图表</p>
-        <div class="chart-control control-children">
-          <div>
-            <p>单位</p>
-            <m-input m-style="dark" size="mini" v-model="selfData.chartOptions.unit" @change="returnChangeOptions" />
-          </div>
-          <div>
-            <p>显示</p>
-            <m-switch v-model="selfData.chartOptions.showUnit" @change="returnChangeOptions"></m-switch>
-          </div>
-          <div>
-            <p>曲线</p>
-            <m-switch v-model="selfData.chartOptions.smooth" @change="returnChangeOptions"></m-switch>
-          </div>
-          <div>
-            <p>坐标轴</p>
-            <m-switch v-model="selfData.chartOptions.axis" @change="returnChangeOptions"></m-switch>
-          </div>
-          <div>
-            <p>分割线</p>
-            <m-switch v-model="selfData.chartOptions.split" @change="returnChangeOptions"></m-switch>
-          </div>
-          <div>
-            <p>动画</p>
-            <m-switch v-model="selfData.chartOptions.animation" @change="returnChangeOptions"></m-switch>
-          </div>
-        </div>
-      </div>
+      <chart-option-config :chart-options="options.chartOptions" v-model="selfData.chartOptions"></chart-option-config>
       <div class="control-option-item">
         <p class="control-option-item-title">自定义</p>
         <m-input size="mini" m-style="dark"></m-input>
@@ -86,8 +58,11 @@
  **/
 
 import { Vue, Component, Prop, Watch, Model } from "vue-property-decorator";
+import ChartOptionConfig from "@/components/controlModels/ChartOptionConfig.vue";
 
-@Component({})
+@Component({
+  components: { ChartOptionConfig }
+})
 export default class ControlPanel extends Vue {
   // @Prop({ type: Object })
   // options!: any;
@@ -116,102 +91,5 @@ export default class ControlPanel extends Vue {
 </script>
 
 <style scoped lang="less">
-.control-panel {
-  position: fixed;
-  top: 42px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  height: calc(100vh - 40px);
-  overflow-y: auto;
-  background: #201f2d;
-  color: #b0b0b0;
-  font-weight: lighter;
-  .panel-title {
-    width: 100%;
-    height: 40px;
-    color: #e3e3e3;
-    font-size: 16px;
-    line-height: 40px;
-    background: #272727;
-  }
-  .control-option-item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 20px;
-    align-items: flex-start;
-    .control-option-item-title {
-      font-size: 14px;
-      padding: 0 0 12px 0;
-    }
-  }
-  .chart-style-item {
-    width: 280px;
-    height: 180px;
-    background: #000000;
-    border-radius: 4px;
-    align-self: center;
-    margin: 6px 0;
-  }
-  .control-children {
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-  .control-position,
-  .control-size {
-    display: inline-flex;
-    justify-content: space-around;
-    box-sizing: border-box;
-    padding: 6px 0;
-    p {
-      display: block;
-      width: 80px;
-      padding: 0 8px;
-      text-align: right;
-      line-height: 28px;
-    }
-    input {
-      width: 100px;
-    }
-  }
-  input {
-    text-align: left;
-    background: black;
-    border: 1px solid #2c3e50;
-    &:focus {
-      border: 1px solid #419cd6;
-    }
-    &:disabled {
-      color: #bfbfbf;
-    }
-  }
-  .chart-control {
-    div {
-      width: 100%;
-      display: inline-flex;
-      justify-content: flex-start;
-      height: 40px;
-      align-items: center;
-    }
-    p {
-      display: block;
-      width: 60px;
-      /*padding: 0 8px;*/
-      box-sizing: content-box;
-      text-align: right;
-    }
-  }
-}
-/deep/ .m-input__content {
-  font-size: 12px;
-}
-.switch {
-  transform: scale(0.8);
-}
+@import "../../src/assets/styles/control-penal.less";
 </style>

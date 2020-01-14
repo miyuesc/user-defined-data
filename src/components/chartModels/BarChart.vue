@@ -93,9 +93,9 @@ export default class BarChart extends Vue {
       },
       grid: {
         top: 60,
-        left: 20,
-        bottom: 20,
-        right: 20,
+        left: 40,
+        bottom: 24,
+        right: 40,
         containLabel: true
       },
       xAxis: [
@@ -247,10 +247,13 @@ export default class BarChart extends Vue {
   display: inline-flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 6px 24px;
+  padding: 10px 40px 6px;
   overflow: hidden;
   opacity: 1;
   position: relative;
+  p {
+    line-height: 24px;
+  }
 }
 .bar-chart {
   overflow: hidden;

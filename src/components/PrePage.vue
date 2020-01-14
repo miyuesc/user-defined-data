@@ -1,7 +1,7 @@
 <template>
   <div class="pre-page-container" :style="styles">
     <slot></slot>
-    <canvas id="demo-canvas" class="pre-page-background" @click="$emit('click')"></canvas>
+    <canvas id="demo-canvas" class="pre-page-background" @click.prevent="$emit('click')"></canvas>
   </div>
 </template>
 
