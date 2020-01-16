@@ -29,6 +29,7 @@
     "animation": true,
     "smooth": false,
     "stacked": false,
+    "shadow": false,
     "userDefined": {}
   },
   // 表格属性
@@ -64,10 +65,13 @@
     "fontFamily": "",
     "align": "left"
   },
-  //
+  // 数据配置
   "dataOptions": {
     "reset": true,
     "url": "",
+    "method": "",
+    "header": {},
+    "prop": {},
     "data": {
       "label": [],
       "value": [

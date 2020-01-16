@@ -187,6 +187,14 @@ export default class LineChart extends Vue {
       this.setOptions();
     }
   }
+  @Watch("chartSize", { immediate: true, deep: true })
+  handleChangeSize() {
+    if (this.lineChart)
+      setTimeout(() => {
+        this.lineChart.resize();
+        // this.setOptions();
+      }, 1);
+  }
 }
 </script>
 

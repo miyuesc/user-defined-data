@@ -89,6 +89,7 @@ export default class BarChart extends Vue {
     let showSplit: boolean = this.chartOptions.split || false;
     let animation: boolean = this.chartOptions.animation || false;
     let stacked: boolean = this.chartOptions.stacked || false;
+    let shadow: boolean = this.chartOptions.shadow || false;
     let color: any = colors[this.chartStyle.name].chart;
     return {
       color: color,
@@ -160,6 +161,30 @@ export default class BarChart extends Vue {
         }
       },
       series: this.defaultData.value.map((i: number[], k: number) => {
+        if (shadow) {
+          return {
+            data: i,
+            type: "bar",
+            name: this.defaultData.legend[k],
+            barWidth: 16, //柱子宽度
+            barGap: stacked ? `-${100 * k}%` : "0%",
+            itemStyle: {
+              normal: {
+                barBorderRadius: [8, 8, 0, 0],
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: color[k]
+                  },
+                  {
+                    offset: 1,
+                    color: color[k] + "3f"
+                  }
+                ])
+              }
+            }
+          };
+        }
         return {
           data: i,
           type: "bar",
@@ -179,8 +204,13 @@ export default class BarChart extends Vue {
     });
   }
   @Watch("chartOption", { immediate: true, deep: true })
-  handleChange() {
-    this.setOptions();
+  handleChange(val: any) {
+    if (val && this.barChart) {
+      this.barChart.clear();
+      this.setOptions();
+    } else {
+      this.setOptions();
+    }
   }
   @Watch("chartSize", { immediate: true, deep: true })
   handleChangeSize() {

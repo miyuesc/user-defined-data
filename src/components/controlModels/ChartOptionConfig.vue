@@ -9,14 +9,22 @@
           <m-input v-show="optionSelf.showUnit" m-style="dark" :clearable="false" size="mini" v-model="optionSelf.unit" @change="returnOptions" />
         </transition>
       </div>
-      <div class="control-children-item" v-if="optionSelf.type === 'line'">
-        <p>曲线</p>
-        <m-switch v-model="optionSelf.smooth" @change="returnOptions"></m-switch>
-      </div>
-      <div class="control-children-item" v-if="optionSelf.type === 'bar'">
-        <p>堆叠</p>
-        <m-switch v-model="optionSelf.stacked" @change="returnOptions"></m-switch>
-      </div>
+      <template v-if="optionSelf.type === 'line'">
+        <div class="control-children-item">
+          <p>曲线</p>
+          <m-switch v-model="optionSelf.smooth" @change="returnOptions"></m-switch>
+        </div>
+      </template>
+      <template v-if="optionSelf.type === 'bar'">
+        <div class="control-children-item">
+          <p>堆叠</p>
+          <m-switch v-model="optionSelf.stacked" @change="returnOptions"></m-switch>
+        </div>
+        <div class="control-children-item">
+          <p>渐变</p>
+          <m-switch v-model="optionSelf.shadow" @change="returnOptions"></m-switch>
+        </div>
+      </template>
       <div class="control-children-item">
         <p>坐标轴</p>
         <m-switch v-model="optionSelf.axis" @change="returnOptions"></m-switch>
