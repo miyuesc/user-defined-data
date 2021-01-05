@@ -1,3 +1,5 @@
+const IS_PROD = process.env.NODE_ENV === "production";
+
 module.exports = {
-  assetsDir: "otherPage"
+  publicPath: IS_PROD ? "././" : "/"
 };
