@@ -168,12 +168,14 @@ export default class Index extends Vue {
     this.activeChart = index;
   }
   configDragging(chart: any, data: any) {
+    console.log(data);
     this.active = chart.title;
     chart.size = data.size;
     chart.position = data.position;
     this.checkedChartOption = chart;
   }
   configResize(chart: any, data: any) {
+    console.log(data);
     chart.size = data.size;
     chart.position = data.position;
     this.checkedChartOption = chart;
